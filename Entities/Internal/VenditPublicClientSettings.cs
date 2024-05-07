@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 
 namespace VenditPublicSdk.Entities.Internal
 {
@@ -38,13 +39,13 @@ namespace VenditPublicSdk.Entities.Internal
             get { return new DateTime(TokenExpire); }
         }
 
-
         #region Optional fields
 
         /// <summary>
         /// When true sets user agent name and version using Assembly.GetEntryAssembly()?.GetName()
         /// This info is not required but may come in handy when Vendit Support needs to inspect server log files (particularly when not yet authenticated).
         /// </summary>
+        [DefaultValue(true)]
         public bool AutomaticallySetUserAgent { get; set; } = true;
 
         /// <summary>
@@ -102,6 +103,11 @@ namespace VenditPublicSdk.Entities.Internal
                    && AuthenticationAddress == other.AuthenticationAddress;
         }
 
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(ApiKey,Username,Password,Token);
+        }
+
         public object Clone()
         {
             return CloneTo(new VenditPublicClientSettings());
@@ -123,6 +129,11 @@ namespace VenditPublicSdk.Entities.Internal
             other.BaseAddress = BaseAddress;
             other.AuthenticationAddress = AuthenticationAddress;
             return other;
+        }
+
+        public override string ToString()
+        {
+            return "Vendit Public Api Settings for " + ApiKey;
         }
     }
 }

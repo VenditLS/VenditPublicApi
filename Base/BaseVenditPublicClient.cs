@@ -224,11 +224,11 @@ namespace VenditPublicSdk.Base
                 SetUserAgent(client);
 
                 HttpResponseMessage response = await client.PostAsync(url, req, cancel).ConfigureAwait(false);
-                if (!response.IsSuccessStatusCode)
+                if (!(response?.IsSuccessStatusCode ?? false))
                 {
-                    if (response.StatusCode == HttpStatusCode.Unauthorized)
-                        throw new InvalidCredentialException(response.ReasonPhrase);
-                    throw new AuthenticationException(response.ReasonPhrase);
+                    if (response?.StatusCode == HttpStatusCode.Unauthorized)
+                        throw new InvalidCredentialException(response?.ReasonPhrase);
+                    throw new AuthenticationException(response?.ReasonPhrase);
                 }
 
                 string rep = await response.Content.ReadAsStringAsync().ConfigureAwait(false);

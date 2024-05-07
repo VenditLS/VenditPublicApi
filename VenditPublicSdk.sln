@@ -5,6 +5,11 @@ VisualStudioVersion = 17.9.34728.123
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VenditPublicSdk", "VenditPublicSdk.csproj", "{2D4463A3-FA76-4EDD-8169-2078EAA59449}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Misc", "Misc", "{5061AC06-5002-4238-94C1-20689C942688}"
+	ProjectSection(SolutionItems) = preProject
+		Misc\LogoIcon.png = Misc\LogoIcon.png
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

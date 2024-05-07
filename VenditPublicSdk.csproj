@@ -5,15 +5,57 @@
     <SccProvider>SAK</SccProvider>
     <SccAuxPath>SAK</SccAuxPath>
     <SccLocalPath>SAK</SccLocalPath>
+		<IsPackable>True</IsPackable>
   </PropertyGroup>
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Title>Vendit Public API SDK</Title>
+    <Version>2024.05.07.001</Version>
+    <Authors>VenditLS, mlsomers</Authors>
+    <Company>Vendit B.V.</Company>
+    <Product>Vendit Public API</Product>
+    <Description>Client with datastructures, bypass the hassle of Swagger and generated code from Json examples. Includes enums and other types that would not be generated automatically.</Description>
+    <Copyright>Vendit B.V.</Copyright>
+    <PackageProjectUrl>https://api2.vendit.online/</PackageProjectUrl>
+    <PackageIcon>LogoIcon.png</PackageIcon>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <RepositoryUrl>https://github.com/VenditLS/VenditPublicApi/</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>Vendit,retail,api,client</PackageTags>
+    <PackageReleaseNotes>Initial public release</PackageReleaseNotes>
+    <PackageOutputPath>$(OutputPath)</PackageOutputPath>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <IncludeSymbols>True</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <NeutralLanguage>nl-NL</NeutralLanguage>
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Misc\**" />
+    <EmbeddedResource Remove="Misc\**" />
+    <None Remove="Misc\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Misc\LogoIcon.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Bcl.HashCode" Version="1.1.1" />
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.1" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>
