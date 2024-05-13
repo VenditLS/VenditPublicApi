@@ -10,6 +10,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Misc", "Misc", "{5061AC06-5
 		Misc\LogoIcon.png = Misc\LogoIcon.png
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{207CAA53-3334-4D1C-A472-A3758B08B2CF}"
+	ProjectSection(SolutionItems) = preProject
+		Docs\Search.md = Docs\Search.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
