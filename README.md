@@ -1,5 +1,6 @@
-# Vendit Public API C# Library
+![Vendit logo](/Misc/LogoSmaller.png "Vendit Logo")
 
+# Vendit Public API
 
 Building a project using Json files from Swagger documentation has not yet reached the schema maturity of older (Soap) technologies. In order to ease the pain, this c# package should get you up and running faster. Without the need of manually changing generated integers to decimals or Enums...
 
@@ -16,11 +17,11 @@ A minimalistic example, getting today's order ID's (ignoring pagination, so up t
 ```C#
 VenditPublicClientSettings settings = new VenditPublicClientSettings
 {
-    ApiKey   = "XxXxXxXxXxXxXxXxXxXxXx",
-    Username = "Xx Keep Secret :-) xXx",
-    Password = "XxXxXxXxXxXxXxXxXxXxXx",
+    ApiKey   = "XxXxXxXxXxXxXxXxXxXxX",
+    Username = "Xx Keep Secret :-) xX",
+    Password = "XxXxXxXxXxXxXxXxXxXxX",
 };
-VenditPublicClient client   = new VenditPublicClient(settings);
+VenditPublicClient client = new VenditPublicClient(settings);
 int[] todaysOrderIds = (await client.FindOrder(OrderFields.OrderDate, DateTime.Today, FilterComparison.GreaterOrEqual)).Results;
 ```
 
@@ -104,7 +105,8 @@ public static class Program
 
     /// <summary>
     /// Checks if a config file exists, if not creates one...
-    /// Your code should store credentials safely and make sure the Token and expiration date are also retrieved for better performance (saves a GetToken round trip) and less frequent logins (exposure of credentials).
+    /// Your code should store credentials safely and make sure the Token and expiration date are also retrieved for better
+    /// performance (saves a GetToken round trip) and less frequent logins (exposure of credentials).
     /// </summary>
     private static async Task<VenditPublicClientSettings> LoadSettings(CancellationToken cancel)
     {
@@ -114,9 +116,9 @@ public static class Program
             {
                 // Don't bother editing these here, run the program once and then update ApiSettings.config with your credentials
 
-                ApiKey   = "XxXxXxXxXxXxXxXxXxXxXx",
-                Username = "Xx Keep Secret :-) xXx",
-                Password = "XxXxXxXxXxXxXxXxXxXxXx",
+                ApiKey   = "XxXxXxXxXxXxXxXxXxXxX",
+                Username = "Xx Keep Secret :-) xX",
+                Password = "XxXxXxXxXxXxXxXxXxXxX",
             };
             await PersistSettings(empty, cancel);
             return empty;
