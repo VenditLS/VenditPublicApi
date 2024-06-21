@@ -287,6 +287,29 @@ namespace VenditPublicSdk.Base
 
         }
 
+        public async Task HandleError(HttpResponseMessage response)
+        {
+            if (!response.IsSuccessStatusCode)
+            {
+                string detail = null;
+                try
+                {
+                    detail = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                }
+                catch (Exception ex)
+                {
+                    detail = "Unable to get message content: " + ex.Message;
+                }
+
+                if (response.StatusCode == HttpStatusCode.Unauthorized)
+                    throw new UnauthorizedAccessException(detail);
+
+                string message = string.Concat("Server responded with ", (int)response.StatusCode, " : ", response.ReasonPhrase, " : ", detail);
+                Logger?.LogError(message);
+                throw new Exception(message);
+            }
+        }
+
         protected async Task<TResults> FindSomething<TResults, TFilters>(TFilters filters, CancellationToken cancel, string url)
         where TResults : IResultsReply
         where TFilters : IBaseFilters
@@ -303,12 +326,7 @@ namespace VenditPublicSdk.Base
 
             HttpResponseMessage response = await client.PostAsync(url, body, cancel).ConfigureAwait(false);
 
-            if (!response.IsSuccessStatusCode)
-            {
-                string message = string.Concat("Server responded with ", (int)response.StatusCode, " : ", response.ReasonPhrase);
-                Logger?.LogError(message);
-                throw new Exception(message);
-            }
+            await HandleError(response);
 
             string responseString = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
 
@@ -332,12 +350,7 @@ namespace VenditPublicSdk.Base
 
             HttpResponseMessage response = await client.GetAsync(url, cancel).ConfigureAwait(false);
 
-            if (!response.IsSuccessStatusCode)
-            {
-                string message = string.Concat("Server responded with ", (int)response.StatusCode, " : ", response.ReasonPhrase);
-                Logger?.LogError(message);
-                throw new Exception(message);
-            }
+            await HandleError(response);
 
             string responseString = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
 
@@ -365,12 +378,7 @@ namespace VenditPublicSdk.Base
 
             HttpResponseMessage response = await client.PostAsync(url, body, cancel).ConfigureAwait(false);
 
-            if (!response.IsSuccessStatusCode)
-            {
-                string message = string.Concat("Server responded with ", (int)response.StatusCode, " : ", response.ReasonPhrase);
-                Logger?.LogError(message);
-                throw new Exception(message);
-            }
+            await HandleError(response);
 
             string responseString = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
 
@@ -393,12 +401,7 @@ namespace VenditPublicSdk.Base
 
             HttpResponseMessage response = await client.GetAsync(url, cancel).ConfigureAwait(false);
 
-            if (!response.IsSuccessStatusCode)
-            {
-                string message = string.Concat("Server responded with ", (int)response.StatusCode, " : ", response.ReasonPhrase);
-                Logger?.LogError(message);
-                throw new Exception(message);
-            }
+            await HandleError(response);
 
             string responseString = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
 
@@ -419,12 +422,7 @@ namespace VenditPublicSdk.Base
 
             HttpResponseMessage response = await client.GetAsync(url, cancel).ConfigureAwait(false);
 
-            if (!response.IsSuccessStatusCode)
-            {
-                string message = string.Concat("Server responded with ", (int)response.StatusCode, " : ", response.ReasonPhrase);
-                Logger?.LogError(message);
-                throw new Exception(message);
-            }
+            await HandleError(response);
 
             string responseString = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
 
@@ -447,12 +445,7 @@ namespace VenditPublicSdk.Base
 
             HttpResponseMessage response = await client.GetAsync(url, cancel).ConfigureAwait(false);
 
-            if (!response.IsSuccessStatusCode)
-            {
-                string message = string.Concat("Server responded with ", (int)response.StatusCode, " : ", response.ReasonPhrase);
-                Logger?.LogWarning(message);
-                return false;
-            }
+            await HandleError(response);
 
             string responseString = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
             Logger?.LogTrace(string.Concat("Calling ", url, " returned ", responseString));
@@ -470,12 +463,7 @@ namespace VenditPublicSdk.Base
 
             HttpResponseMessage response = await client.GetAsync(url, cancel).ConfigureAwait(false);
 
-            if (!response.IsSuccessStatusCode)
-            {
-                string message = string.Concat("Server responded with ", (int)response.StatusCode, " : ", response.ReasonPhrase);
-                Logger?.LogError(message);
-                throw new Exception(message);
-            }
+            await HandleError(response);
 
             string responseString = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
 

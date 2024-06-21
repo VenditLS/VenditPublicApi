@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using VenditPublicSdk.Base;
 using VenditPublicSdk.Entities;
@@ -40,9 +41,22 @@ namespace VenditPublicSdk
             return GetMultiple<Product, int>(ids, cancel, "/VenditPublicApi/Products");
         }
 
+        // -- Stock
+
         public Task<ProductStock[]> GetProductStock(int productId, int sizeColorId = 0, int officeId = 0, CancellationToken cancel = default)
         {
             return GetMultiple<ProductStock>(cancel, string.Concat("/VenditPublicApi/ProductStock/", productId, "/", sizeColorId, "/", officeId));
+        }
+
+        public Task<ProductSizeColorStock[]> GetChangedStockFromDate(DateTime from, CancellationToken cancel = default)
+        {
+            long unixMillisec = new DateTimeOffset(from).ToUnixTimeMilliseconds();
+            return GetMultiple<ProductSizeColorStock>(cancel, string.Concat("/VenditPublicApi/ProductStock/GetChangedStockFromDate/", unixMillisec));
+        }
+
+        public Task<ProductStockDetail[]> GetProductStockDetails(int productId, int sizeColorId = 0, int officeId = 0, CancellationToken cancel = default)
+        {
+            return GetMultiple<ProductStockDetail>(cancel, string.Concat("/VenditPublicApi/ProductStock/Details/", productId, "/", sizeColorId, "/", officeId));
         }
 
         // --- Attributes
