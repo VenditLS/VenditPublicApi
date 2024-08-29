@@ -7,3 +7,5 @@
 /bin/Debug/netstandard2.0
 /bin/Release/netstandard2.0
 /bin/Release
+/Examples/GetTodaysOrders/bin
+/Examples/GetTodaysOrders/obj

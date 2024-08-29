@@ -34,10 +34,13 @@
 
   <ItemGroup>
     <Compile Remove="Docs\**" />
+    <Compile Remove="Examples\**" />
     <Compile Remove="Misc\**" />
     <EmbeddedResource Remove="Docs\**" />
+    <EmbeddedResource Remove="Examples\**" />
     <EmbeddedResource Remove="Misc\**" />
     <None Remove="Docs\**" />
+    <None Remove="Examples\**" />
     <None Remove="Misc\**" />
   </ItemGroup>
 
