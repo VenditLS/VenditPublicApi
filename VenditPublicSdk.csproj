@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup Label="Globals">
     <SccProjectName>SAK</SccProjectName>
@@ -12,7 +12,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Title>Vendit Public API SDK</Title>
-    <Version>2024.05.07.002</Version>
+    <Version>2024.08.29.001</Version>
     <Authors>VenditLS, mlsomers</Authors>
     <Company>Vendit B.V.</Company>
     <Product>Vendit Public API</Product>
@@ -55,7 +55,7 @@
   </ItemGroup>
 
 	<ItemGroup>
-		<None Include="Misc\LogoIcon.png" Pack="true" PackagePath=""/>
+		<None Include="Misc\LogoIcon.png" Pack="true" PackagePath="" />
 	</ItemGroup>
 
 

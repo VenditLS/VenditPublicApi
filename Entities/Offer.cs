@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using VenditPublicSdk.Entities.Internal;
 
 namespace VenditPublicSdk.Entities
@@ -55,7 +56,7 @@ namespace VenditPublicSdk.Entities
     }
 
     [Serializable]
-    public partial class OfferDetail
+    public class OfferDetail
     {
         public long CustomerOfferDetailId { get; set; }
 
@@ -216,5 +217,48 @@ namespace VenditPublicSdk.Entities
         public string VelopassNumber { get; set; }
 
         public decimal? ReservedAmount { get; set; }
+    }
+
+    [Serializable]
+    public class OfferStatus
+    {
+        public int OfferStatusId { get; set; }
+        public string StatusDescription { get; set; }
+        public OfferStatusEnum EnumValue { get; set; }
+        public bool Fixed { get; set; }
+        public short SortOrder { get; set; }
+    }
+
+    public enum OfferStatusEnum
+    {
+        /// <summary>
+        /// Onbekend
+        /// </summary>
+        [Description("<onbekend>")]
+        None = 0,
+
+        /// <summary>
+        /// Lopend
+        /// </summary>
+        [Description("Lopend")]
+        Active = 1,
+
+        /// <summary>
+        /// Klant gebeld
+        /// </summary>
+        [Description("Klant gebeld")]
+        CustomerCalled = 2,
+
+        /// <summary>
+        /// Klant akkoord
+        /// </summary>
+        [Description("Klant akkoord")]
+        CustomerAccepted = 3,
+
+        /// <summary>
+        /// Afgesloten
+        /// </summary>
+        [Description("Afgesloten")]
+        Closed = 4
     }
 }

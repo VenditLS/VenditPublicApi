@@ -17,6 +17,5 @@ namespace VenditPublicSdk.Entities
         public string houseNumberSuffix { get; set; }
         public string companyName       { get; set; }
         public string glnNumber         { get; set; }
-        public string correlate         { get; set; }
     }
 }

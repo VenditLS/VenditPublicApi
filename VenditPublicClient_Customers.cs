@@ -2,6 +2,9 @@
 using System.Threading.Tasks;
 using VenditPublicSdk.Base;
 using VenditPublicSdk.Entities;
+using VenditPublicSdk.Entities.Import;
+using VenditPublicSdk.Entities.Internal;
+using VenditPublicSdk.Entities.Lookups;
 using VenditPublicSdk.Find;
 
 namespace VenditPublicSdk
@@ -99,6 +102,175 @@ namespace VenditPublicSdk
         public Task<Phone[]> GetPhones(CancellationToken cancel, params int[] ids)
         {
             return GetMultiple<Phone, int>(ids, cancel, "/VenditPublicApi/Phones");
+        }
+
+        // Address Types
+
+        public Task<AddressType> GetAddressType(int typeId, CancellationToken cancel = default)
+        {
+            return GetSomething<AddressType>(typeId.ToString(), cancel, "/VenditPublicApi/Lookups/AddressTypes/");
+        }
+
+        public Task<AddressType[]> GetAddressTypes(params int[] ids)
+        {
+            return GetAddressTypes(CancellationToken.None, ids);
+        }
+
+        public Task<AddressType[]> GetAddressTypes(CancellationToken cancel, params int[] ids)
+        {
+            return GetMultiple<AddressType, int>(ids, cancel, "/VenditPublicApi/Lookups/AddressTypes/");
+        }
+
+        public Task<AddressType[]> GetAllAddressTypes(CancellationToken cancel = default)
+        {
+            return GetAll<AddressType>(cancel, "/VenditPublicApi/Lookups/AddressTypes/");
+        }
+
+        // Countries
+
+        public Task<Country> GetCountry(int countryId, CancellationToken cancel = default)
+        {
+            return GetSomething<Country>(countryId.ToString(), cancel, "/VenditPublicApi/Lookups/Countries/");
+        }
+
+        public Task<Country[]> GetCountries(params int[] ids)
+        {
+            return GetCountries(CancellationToken.None, ids);
+        }
+
+        public Task<Country[]> GetCountries(CancellationToken cancel, params int[] ids)
+        {
+            return GetMultiple<Country, int>(ids, cancel, "/VenditPublicApi/Lookups/Countries/");
+        }
+
+        public Task<Country[]> GetAllCountries(CancellationToken cancel = default)
+        {
+            return GetAll<Country>(cancel, "/VenditPublicApi/Lookups/Countries/");
+        }
+
+        // MiddleName
+
+        public Task<MiddleName> GetMiddleName(int id, CancellationToken cancel = default)
+        {
+            return GetSomething<MiddleName>(id.ToString(), cancel, "/VenditPublicApi/Lookups/MiddleNames/");
+        }
+
+        public Task<MiddleName[]> GetMiddleNames(params int[] ids)
+        {
+            return GetMiddleNames(CancellationToken.None, ids);
+        }
+
+        public Task<MiddleName[]> GetMiddleNames(CancellationToken cancel, params int[] ids)
+        {
+            return GetMultiple<MiddleName, int>(ids, cancel, "/VenditPublicApi/Lookups/MiddleNames/");
+        }
+
+        public Task<MiddleName[]> GetAllMiddleNames(CancellationToken cancel = default)
+        {
+            return GetAll<MiddleName>(cancel, "/VenditPublicApi/Lookups/MiddleNames/");
+        }
+
+        // Title
+
+        public Task<Title> GetTitle(int id, CancellationToken cancel = default)
+        {
+            return GetSomething<Title>(id.ToString(), cancel, "/VenditPublicApi/Lookups/Titles/");
+        }
+
+        public Task<Title[]> GetTitles(params int[] ids)
+        {
+            return GetTitles(CancellationToken.None, ids);
+        }
+
+        public Task<Title[]> GetTitles(CancellationToken cancel, params int[] ids)
+        {
+            return GetMultiple<Title, int>(ids, cancel, "/VenditPublicApi/Lookups/Titles/");
+        }
+
+        public Task<Title[]> GetAllTitles(CancellationToken cancel = default)
+        {
+            return GetAll<Title>(cancel, "/VenditPublicApi/Lookups/Titles/");
+        }
+
+        // Gender
+
+        public Task<Gender> GetGender(int id, CancellationToken cancel = default)
+        {
+            return GetSomething<Gender>(id.ToString(), cancel, "/VenditPublicApi/Lookups/Genders/");
+        }
+
+        public Task<Gender[]> GetGenders(params int[] ids)
+        {
+            return GetGenders(CancellationToken.None, ids);
+        }
+
+        public Task<Gender[]> GetGenders(CancellationToken cancel, params int[] ids)
+        {
+            return GetMultiple<Gender, int>(ids, cancel, "/VenditPublicApi/Lookups/Genders/");
+        }
+
+        public Task<Gender[]> GetAllGenders(CancellationToken cancel = default)
+        {
+            return GetAll<Gender>(cancel, "/VenditPublicApi/Lookups/Genders/");
+        }
+
+        // ContactFunction
+
+        public Task<ContactFunction> GetContactFunction(int id, CancellationToken cancel = default)
+        {
+            return GetSomething<ContactFunction>(id.ToString(), cancel, "/VenditPublicApi/Lookups/ContactFunctions/");
+        }
+
+        public Task<ContactFunction[]> GetContactFunctions(params int[] ids)
+        {
+            return GetContactFunctions(CancellationToken.None, ids);
+        }
+
+        public Task<ContactFunction[]> GetContactFunctions(CancellationToken cancel, params int[] ids)
+        {
+            return GetMultiple<ContactFunction, int>(ids, cancel, "/VenditPublicApi/Lookups/ContactFunctions/");
+        }
+
+        public Task<ContactFunction[]> GetAllContactFunctions(CancellationToken cancel = default)
+        {
+            return GetAll<ContactFunction>(cancel, "/VenditPublicApi/Lookups/ContactFunctions/");
+        }
+
+        // PhoneType
+
+        public Task<PhoneType> GetPhoneType(int id, CancellationToken cancel = default)
+        {
+            return GetSomething<PhoneType>(id.ToString(), cancel, "/VenditPublicApi/Lookups/PhoneTypes/");
+        }
+
+        public Task<PhoneType[]> GetPhoneTypes(params int[] ids)
+        {
+            return GetPhoneTypes(CancellationToken.None, ids);
+        }
+
+        public Task<PhoneType[]> GetPhoneTypes(CancellationToken cancel, params int[] ids)
+        {
+            return GetMultiple<PhoneType, int>(ids, cancel, "/VenditPublicApi/Lookups/PhoneTypes/");
+        }
+
+        public Task<PhoneType[]> GetAllPhoneTypes(CancellationToken cancel = default)
+        {
+            return GetAll<PhoneType>(cancel, "/VenditPublicApi/Lookups/PhoneTypes/");
+        }
+
+        // --- Import
+
+        public async Task<int> ImportCustomers(CancellationToken cancel = default, params ImportCustomer[] import)
+        {
+            if (import is null || import.Length < 1)
+                return 0;
+
+            string reply = await Post(cancel, "/VenditPublicApi/Customers/Import", new Results<ImportCustomer>(import));
+            int    ret   = 0;
+            if (int.TryParse(reply, out ret))
+                return ret;
+
+            return -1;
         }
     }
 }

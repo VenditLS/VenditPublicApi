@@ -6,7 +6,7 @@ namespace VenditPublicSdk.Entities
     [Serializable]
     public class Supplier
     {
-        public Results<Address> Addresses { get; set; }
+        public Address[] Addresses { get; set; }
 
         public int SupplierId { get; set; }
 

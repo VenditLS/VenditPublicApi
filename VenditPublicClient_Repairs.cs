@@ -48,5 +48,27 @@ namespace VenditPublicSdk
         {
             return GetSomething<Repair>(id.ToString(), cancel, "/VenditPublicApi/Repairs/GetWithDetails");
         }
+
+        // RepairStatus
+
+        public Task<RepairStatus> GetRepairStatus(int statusId, CancellationToken cancel = default)
+        {
+            return GetSomething<RepairStatus>(statusId.ToString(), cancel, "/VenditPublicApi/Lookups/RepairStatuses/");
+        }
+
+        public Task<RepairStatus[]> GetRepairStatuses(params int[] ids)
+        {
+            return GetRepairStatuses(CancellationToken.None, ids);
+        }
+
+        public Task<RepairStatus[]> GetRepairStatuses(CancellationToken cancel, params int[] ids)
+        {
+            return GetMultiple<RepairStatus, int>(ids, cancel, "/VenditPublicApi/Lookups/RepairStatuses/");
+        }
+
+        public Task<RepairStatus[]> GetAllRepairStatuses(CancellationToken cancel = default)
+        {
+            return GetAll<RepairStatus>(cancel, "/VenditPublicApi/Lookups/RepairStatuses/");
+        }
     }
 }

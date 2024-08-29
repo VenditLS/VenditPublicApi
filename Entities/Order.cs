@@ -185,6 +185,19 @@ namespace VenditPublicSdk.Entities
     }
 
     [Serializable]
+    public class OrderStatus
+    {
+        public int OrderStatusId { get; set; }
+        public string StatusDescription { get; set; }
+        public OrderStatusEnum EnumValue { get; set; }
+        public bool Fixed { get; set; }
+        public short SortOrder { get; set; }
+        public int? StatusColor { get; set; }
+        public int? FontColor { get; set; }
+        public bool IsReadonly { get; set; }
+    }
+
+    [Serializable]
     public enum DeliveryCommunicationType
     {
         [Description("SMS")]
@@ -269,6 +282,99 @@ namespace VenditPublicSdk.Entities
         /// </summary>
         [Description("Niet geactiveerd")]
         NotActivated = 5 // Blue: Not activated
+    }
+
+    public enum OrderStatusEnum // Do NOT change enum values, they're used in T_ORDER_STATUS table and stored-procedures!
+    {
+        /// <summary>
+        /// onbekend
+        /// </summary>
+        [Description("<onbekend>")]
+        None = 0,
+
+        /// <summary>
+        /// Nieuwe order
+        /// </summary>
+        [Description("Nieuwe order")]
+        New = 1,
+
+        /// <summary>
+        /// In behandeling
+        /// </summary>
+        [Description("In behandeling")]
+        Processing = 2,
+
+        /// <summary>
+        /// Producten besteld
+        /// </summary>
+        [Description("Producten besteld")]
+        ProductsOrdered = 3,
+
+        /// <summary>
+        /// Voorraad gereserveerd
+        /// </summary>
+        [Description("Voorraad gereserveerd")]
+        StockReserved = 4,
+
+        /// <summary>
+        /// Gereed
+        /// </summary>
+        [Description("Gereed")]
+        Ready = 5,
+
+        /// <summary>
+        /// Niet geactiveerd
+        /// </summary>
+        [Description("Niet geactiveerd")]
+        NotActivated = 6,
+
+        /// <summary>
+        /// Gedeeltelijk uitgeleverd
+        /// </summary>
+        [Description("Gedeeltelijk uitgeleverd")]
+        PartialExtradited = 7,
+
+        /// <summary>
+        /// Uitgeleverd
+        /// </summary>
+        [Description("Uitgeleverd")]
+        Extradited = 8,
+
+        /// <summary>
+        /// Gefactureerd
+        /// </summary>
+        [Description("Gefactureerd")]
+        Invoiced = 9,
+
+        /// <summary>
+        /// In behandeling (Locked)
+        /// </summary>
+        [Description("In behandeling (Locked)")]
+        ProcessingLocked = 10,
+
+        /// <summary>
+        /// Drop-shipment
+        /// </summary>
+        [Description("Dropshipment")]
+        DropshipmentManual = 11,
+
+        /// <summary>
+        /// Wordt gepickt
+        /// </summary>
+        [Description("Wordt gepickt")]
+        Picking = 12,
+
+        /// <summary>
+        /// Is gepickt
+        /// </summary>
+        [Description("Is gepickt")]
+        Picked = 13,
+
+        /// <summary>
+        /// Incompleet gepickt
+        /// </summary>
+        [Description("Incompleet gepickt")]
+        PickedIncomplete = 14
     }
 
     [Serializable]

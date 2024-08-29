@@ -114,46 +114,56 @@ namespace VenditPublicSdk.Base
             Logger = logger;
         }
 
+        private static readonly SemaphoreSlim SyncRoot = new SemaphoreSlim(1, 1);
+
         /// <summary>
         /// Returns an authenticated client having the required ApiKey and Token headers (may involve refreshing the token in the process)
         /// </summary>
         public async Task<HttpClient> GetClient(CancellationToken cancel)
         {
-            if (_client is null || CheckTokenExpire())
+            await SyncRoot.WaitAsync(cancel);
+            try
             {
-                try
+                if (_client is null || CheckTokenExpire())
                 {
-                    await _applyChangesLock.WaitAsync(cancel);
-
-                    if (_client is null || CheckTokenExpire()) // bail out if previous thread already completed this task (thread my have been waiting on the lock in a queue)
+                    try
                     {
-                        if (string.IsNullOrWhiteSpace(_settings.BaseAddress))
-                            _settings.BaseAddress = "https://api2.vendit.online/VenditPublicApi"; // set to default production
+                        await _applyChangesLock.WaitAsync(cancel);
 
-                        HttpClient client = new HttpClient()
+                        if (_client is null || CheckTokenExpire()) // bail out if previous thread already completed this task (thread my have been waiting on the lock in a queue)
                         {
-                            BaseAddress = new Uri(_settings.BaseAddress),
-                        };
+                            if (string.IsNullOrWhiteSpace(_settings.BaseAddress))
+                                _settings.BaseAddress = "https://api2.vendit.online/VenditPublicApi"; // set to default production
 
-                        SetUserAgent(client);
-                        bool shouldPersist = await CheckToken(cancel).ConfigureAwait(false);
+                            HttpClient client = new HttpClient()
+                            {
+                                BaseAddress = new Uri(_settings.BaseAddress),
+                            };
 
-                        client.DefaultRequestHeaders.Remove("ApiKey");
-                        client.DefaultRequestHeaders.Remove("Token");
+                            SetUserAgent(client);
+                            bool shouldPersist = await CheckToken(cancel).ConfigureAwait(false);
 
-                        client.DefaultRequestHeaders.Add("ApiKey", _settings.ApiKey);
-                        client.DefaultRequestHeaders.Add("Token",  _settings.Token);
+                            client.DefaultRequestHeaders.Remove("ApiKey");
+                            client.DefaultRequestHeaders.Remove("Token");
 
-                        _client = client;
+                            client.DefaultRequestHeaders.Add("ApiKey", _settings.ApiKey);
+                            client.DefaultRequestHeaders.Add("Token",  _settings.Token);
 
-                        if (shouldPersist && PersistSettings != null) // persist outside the lock so threads can continue
-                            await PersistSettings(_settings, cancel).ConfigureAwait(false);
+                            _client = client;
+
+                            if (shouldPersist && PersistSettings != null) // persist outside the lock so threads can continue
+                                await PersistSettings(_settings, cancel).ConfigureAwait(false);
+                        }
+                    }
+                    finally
+                    {
+                        _applyChangesLock.Release();
                     }
                 }
-                finally
-                {
-                    _applyChangesLock.Release();
-                }
+            }
+            finally
+            {
+                SyncRoot.Release();
             }
 
             return _client;
@@ -252,7 +262,7 @@ namespace VenditPublicSdk.Base
         /// </summary>
         public async Task<bool> ValidateApiKeyAndToken(CancellationToken cancel = default)
         {
-            bool ok = await CheckApiKeyAndToken(cancel).ConfigureAwait(false); ;
+            bool ok = await CheckApiKeyAndToken(cancel).ConfigureAwait(false);
             if (!ok)
             {
                 try
@@ -435,22 +445,30 @@ namespace VenditPublicSdk.Base
 
         protected async Task<bool> CheckApiKeyAndToken(CancellationToken cancel = default)
         {
-            ConfiguredTaskAwaitable<HttpClient> clientTask = GetClient(cancel).ConfigureAwait(false);
+            try
+            {
+                ConfiguredTaskAwaitable<HttpClient> clientTask = GetClient(cancel).ConfigureAwait(false);
 
-            string url = "/VenditPublicApi/Utils/CheckApiKeyAndToken";
+                string url = "/VenditPublicApi/Utils/CheckApiKeyAndToken";
 
-            Logger?.LogTrace(string.Concat("Calling ", url));
+                Logger?.LogTrace(string.Concat("Calling ", url));
 
-            HttpClient client = await clientTask;
+                HttpClient client = await clientTask;
 
-            HttpResponseMessage response = await client.GetAsync(url, cancel).ConfigureAwait(false);
+                HttpResponseMessage response = await client.GetAsync(url, cancel).ConfigureAwait(false);
 
-            await HandleError(response);
+                await HandleError(response);
 
-            string responseString = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-            Logger?.LogTrace(string.Concat("Calling ", url, " returned ", responseString));
+                string responseString = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                Logger?.LogTrace(string.Concat("Calling ", url, " returned ", responseString));
 
-            return responseString == "true";
+                return responseString == "true";
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Trace.WriteLine(ex.Message);
+                return false;
+            }
         }
 
         protected async Task<TResults> GetSomething<TResults>(CancellationToken cancel, string url)
@@ -472,6 +490,37 @@ namespace VenditPublicSdk.Base
             Logger?.LogTrace(string.Concat("Called ", url, " successfully."));
 
             return results;
+        }
+
+        protected async Task<TResults> PostObj<TResults>(CancellationToken cancel, string url, object bdy)
+        {
+            string responseString = await Post(cancel, url, bdy);
+
+            TResults results = JsonConvert.DeserializeObject<TResults>(responseString);
+
+            return results;
+        }
+
+        protected async Task<string> Post(CancellationToken cancel, string url, object bdy)
+        {
+            ConfiguredTaskAwaitable<HttpClient> clientTask = GetClient(cancel).ConfigureAwait(false);
+
+            Logger?.LogTrace(string.Concat("Calling ", url));
+
+            HttpClient client = await clientTask;
+
+            string        payload = JsonConvert.SerializeObject(bdy);
+            StringContent body    = new StringContent(payload, Encoding.UTF8, "application/json");
+
+            HttpResponseMessage response = await client.PostAsync(url, body, cancel).ConfigureAwait(false);
+
+            await HandleError(response);
+
+            string responseString = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+
+            Logger?.LogTrace(string.Concat("Called ", url, " successfully."));
+
+            return responseString;
         }
 
     }

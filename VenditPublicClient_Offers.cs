@@ -42,5 +42,27 @@ namespace VenditPublicSdk
         {
             return GetSomething<long[]>(customerId.ToString(), cancel, "/VenditPublicApi/Offers/GetForCustomer");
         }
+
+        // OfferStatus
+
+        public Task<OfferStatus> GetOfferStatus(int statusId, CancellationToken cancel = default)
+        {
+            return GetSomething<OfferStatus>(statusId.ToString(), cancel, "/VenditPublicApi/Lookups/OfferStatuses/");
+        }
+
+        public Task<OfferStatus[]> GetOfferStatuses(params int[] ids)
+        {
+            return GetOfferStatuses(CancellationToken.None, ids);
+        }
+
+        public Task<OfferStatus[]> GetOfferStatuses(CancellationToken cancel, params int[] ids)
+        {
+            return GetMultiple<OfferStatus, int>(ids, cancel, "/VenditPublicApi/Lookups/OfferStatuses/");
+        }
+
+        public Task<OfferStatus[]> GetAllOfferStatuses(CancellationToken cancel = default)
+        {
+            return GetAll<OfferStatus>(cancel, "/VenditPublicApi/Lookups/OfferStatuses/");
+        }
     }
 }

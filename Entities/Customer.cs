@@ -6,63 +6,63 @@ namespace VenditPublicSdk.Entities
     [Serializable]
     public class Customer
     {
-        public int customerId { get; set; }
-        public string companyName { get; set; }
-        public string website { get; set; }
-        public string bankAccount { get; set; }
-        public string additionalInfo { get; set; }
-        public string emailAddress { get; set; }
-        public bool showInclVat { get; set; }
-        public decimal? maxCreditLimit { get; set; }
-        public short? maxOverdueDays { get; set; }
-        public int? customerNumber { get; set; }
-        public int customerBonusDiscountId { get; set; }
-        public decimal customerBonusDiscountScore { get; set; }
-        public string customerBonusCardNumber { get; set; }
-        public decimal fixedDiscountPercentage { get; set; }
-        public int paymentTermId { get; set; }
-        public int pickinglistOnReceiptOption { get; set; }
-        public int pickinglistAutoInvoiceDays { get; set; }
-        public decimal pickinglistAutoInvoiceAmount { get; set; }
-        public int pickinglistPrintInvoiceShort { get; set; }
-        public string vatNumber { get; set; }
-        public int customerGroupBitvalue { get; set; }
-        public string hintInfo { get; set; }
-        public string extraInfo { get; set; }
-        public int customerBonusTransactionCount { get; set; }
-        public string ecommerceCustomerNumber { get; set; }
-        public DateTime? datetimeLastUpdate { get; set; }
-        public DateTime? creationDatetime { get; set; }
-        public DateTime? modifiedDatetime { get; set; }
-        public int? createdBy { get; set; }
-        public int? modifiedBy { get; set; }
-        public DateTime? lastTransactionDatetime { get; set; }
-        public int? pricelistId { get; set; }
-        public int pickinglistPrintBrutoPrices { get; set; }
-        public bool allowOnAccount { get; set; }
-        public string customerNumber2 { get; set; }
-        public int invoiceDebitCustomerId { get; set; }
-        public int invoiceDebitAddressId { get; set; }
-        public int invoiceDebitContactId { get; set; }
-        public string kvkNumber { get; set; }
-        public int createdOfficeId { get; set; }
-        public string ibanNumber { get; set; }
-        public bool? noTransactions { get; set; }
-        public bool? noInformation { get; set; }
-        public bool isResale { get; set; }
-        public bool isRaisePercent { get; set; }
-        public int? vatRegimeId { get; set; }
-        public string tomirrowId { get; set; }
-        public string loyalty4GId { get; set; }
-        public string webVideoPwd { get; set; }
-        public bool noNewsletter { get; set; }
-        public int unpaidAccountTypeId { get; set; }
-        public int? languageId { get; set; }
-        public bool hideCustomerInfo { get; set; }
-        public string invoiceEmailAddress { get; set; }
-        public bool optIn { get; set; }
-        public DateTime? optInDatetime { get; set; }
-        public int? edifactTypeEnum { get; set; }
+        public int CustomerId { get; set; }
+        public string CompanyName { get; set; }
+        public string Website { get; set; }
+        public string BankAccount { get; set; }
+        public string AdditionalInfo { get; set; }
+        public string EmailAddress { get; set; }
+        public bool ShowInclVat { get; set; }
+        public decimal? MaxCreditLimit { get; set; }
+        public short? MaxOverdueDays { get; set; }
+        public int? CustomerNumber { get; set; }
+        public int CustomerBonusDiscountId { get; set; }
+        public decimal CustomerBonusDiscountScore { get; set; }
+        public string CustomerBonusCardNumber { get; set; }
+        public decimal FixedDiscountPercentage { get; set; }
+        public int PaymentTermId { get; set; }
+        public int PickinglistOnReceiptOption { get; set; }
+        public int PickinglistAutoInvoiceDays { get; set; }
+        public decimal PickinglistAutoInvoiceAmount { get; set; }
+        public int PickinglistPrintInvoiceShort { get; set; }
+        public string VatNumber { get; set; }
+        public int CustomerGroupBitvalue { get; set; }
+        public string HintInfo { get; set; }
+        public string ExtraInfo { get; set; }
+        public int CustomerBonusTransactionCount { get; set; }
+        public string EcommerceCustomerNumber { get; set; }
+        public DateTime? DatetimeLastUpdate { get; set; }
+        public DateTime? CreationDatetime { get; set; }
+        public DateTime? ModifiedDatetime { get; set; }
+        public int? CreatedBy { get; set; }
+        public int? ModifiedBy { get; set; }
+        public DateTime? LastTransactionDatetime { get; set; }
+        public int? PricelistId { get; set; }
+        public int PickinglistPrintBrutoPrices { get; set; }
+        public bool AllowOnAccount { get; set; }
+        public string CustomerNumber2 { get; set; }
+        public int InvoiceDebitCustomerId { get; set; }
+        public int InvoiceDebitAddressId { get; set; }
+        public int InvoiceDebitContactId { get; set; }
+        public string KvkNumber { get; set; }
+        public int CreatedOfficeId { get; set; }
+        public string IbanNumber { get; set; }
+        public bool? NoTransactions { get; set; }
+        public bool? NoInformation { get; set; }
+        public bool IsResale { get; set; }
+        public bool IsRaisePercent { get; set; }
+        public int? VatRegimeId { get; set; }
+        public string TomirrowId { get; set; }
+        public string Loyalty4GId { get; set; }
+        public string WebVideoPwd { get; set; }
+        public bool NoNewsletter { get; set; }
+        public int UnpaidAccountTypeId { get; set; }
+        public int? LanguageId { get; set; }
+        public bool HideCustomerInfo { get; set; }
+        public string InvoiceEmailAddress { get; set; }
+        public bool OptIn { get; set; }
+        public DateTime? OptInDatetime { get; set; }
+        public int? EdifactTypeEnum { get; set; }
 
         /// <summary>
         /// EDIFACT_TYPE_ENUM (int NULL)
@@ -71,8 +71,8 @@ namespace VenditPublicSdk.Entities
         [Newtonsoft.Json.JsonIgnore]
         public EdifactTypeEnum? EdifactType
         {
-            get { return (EdifactTypeEnum?)edifactTypeEnum; }
-            set { edifactTypeEnum = (int?)value; }
+            get { return (EdifactTypeEnum?)EdifactTypeEnum; }
+            set { EdifactTypeEnum = (int?)value; }
         }
     }
 
@@ -87,20 +87,20 @@ namespace VenditPublicSdk.Entities
     [Serializable]
     public class Salecustomer
     {
-        public int addCustomerBonusDiscountScore { get; set; }
-        public int addCustomerBonusDiscountCreditScore { get; set; }
-        public int addCustomerBonusTransactionCount { get; set; }
-        public int saleCustomerId { get; set; }
-        public int saleHeaderId { get; set; }
-        public int customerId { get; set; }
-        public string invoiceZipcode { get; set; }
-        public string invoiceCity { get; set; }
-        public int invoiceAddressId { get; set; }
-        public int invoiceContactId { get; set; }
-        public int deliveryAddressId { get; set; }
-        public int deliveryContactId { get; set; }
-        public int invoiceDebitCustomerId { get; set; }
-        public int invoiceCountryId { get; set; }
+        public int AddCustomerBonusDiscountScore { get; set; }
+        public int AddCustomerBonusDiscountCreditScore { get; set; }
+        public int AddCustomerBonusTransactionCount { get; set; }
+        public int SaleCustomerId { get; set; }
+        public int SaleHeaderId { get; set; }
+        public int CustomerId { get; set; }
+        public string InvoiceZipcode { get; set; }
+        public string InvoiceCity { get; set; }
+        public int InvoiceAddressId { get; set; }
+        public int InvoiceContactId { get; set; }
+        public int DeliveryAddressId { get; set; }
+        public int DeliveryContactId { get; set; }
+        public int InvoiceDebitCustomerId { get; set; }
+        public int InvoiceCountryId { get; set; }
     }
 
 }

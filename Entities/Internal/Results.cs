@@ -15,6 +15,15 @@ namespace VenditPublicSdk.Entities.Internal
         [JsonProperty("items")]
         public TEntity[] Items { get; set; }
 
+        public Results()
+        {
+        }
+
+        public Results(params TEntity[] items)
+        {
+            Items= items;
+        }
+
         public static implicit operator TEntity[](Results<TEntity> results)
         {
             return results.Items;
