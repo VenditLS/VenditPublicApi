@@ -77,6 +77,11 @@ namespace VenditPublicSdk.Entities
         public string OriginCountry { get; set; }
         public bool WebshopEnabled { get; set; }
         public bool WebshopOrderable { get; set; }
+
+        public override string ToString()
+        {
+            return $"[{ProductNumber}] {ProductDescription}";
+        }
     }
 
     [Serializable]

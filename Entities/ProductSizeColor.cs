@@ -21,7 +21,7 @@ namespace VenditPublicSdk.Entities
 
         public override string ToString()
         {
-            return string.Concat(SizeName, " - ", ColorName);
+            return $"{SizeName} - {ColorName}";
         }
     }
 }

@@ -17,5 +17,10 @@ namespace VenditPublicSdk.Entities
         public bool VatDisabled { get; set; }
         public bool VatShiftedRuleOutsideEu { get; set; }
         public bool VatShiftedRuleOwnCountry { get; set; }
+
+        public override string ToString()
+        {
+            return $"{VatDescription} {VatPercent}";
+        }
     }
 }

@@ -58,6 +58,10 @@ namespace VenditPublicSdk.Entities
         public OrderPickListStatusEnum PickStatusEnum { get; set; }
         public Results<OrderDownpayment> DownPayments { get; set; }
 
+        public override string ToString()
+        {
+            return $"[{CustomerOrderNumber}] {CreationDatetime.ToShortDateString()}";
+        }
     }
 
     [Serializable]
@@ -169,6 +173,10 @@ namespace VenditPublicSdk.Entities
         public string StorageName { get; set; }
         public string OrderNumber { get; set; }
 
+        public override string ToString()
+        {
+            return $"{ProductQuantity} x [{ProductNumber}] {ProductDescription}";
+        }
     }
 
     [Serializable]
@@ -182,6 +190,11 @@ namespace VenditPublicSdk.Entities
         public int PaymentCodeId { get; set; }
         public System.DateTime? ProcessingDate { get; set; }
         public int PaymentTypeId { get; set; }
+
+        public override string ToString()
+        {
+            return $"{PaymentDate.ToShortDateString()} : {PaymentAmount:N2}";
+        }
     }
 
     [Serializable]
@@ -195,6 +208,11 @@ namespace VenditPublicSdk.Entities
         public int? StatusColor { get; set; }
         public int? FontColor { get; set; }
         public bool IsReadonly { get; set; }
+
+        public override string ToString()
+        {
+            return StatusDescription;
+        }
     }
 
     [Serializable]

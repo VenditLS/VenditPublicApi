@@ -26,5 +26,10 @@ namespace VenditPublicSdk.Entities
         public Guid? ExternalId { get; set; }
         public bool OptIn { get; set; }
         public DateTime? OptInDatetime { get; set; }
+
+        public override string ToString()
+        {
+            return $"{LastName}, {FirstName}";
+        }
     }
 }

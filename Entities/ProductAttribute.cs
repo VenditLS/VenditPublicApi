@@ -16,7 +16,7 @@ namespace VenditPublicSdk.Entities
 
         public override string ToString()
         {
-            return string.Concat("[", AttributeCode, "] ", AttributeDescription, " = ", ProductAttributeValue);
+            return $"[{AttributeCode}] {AttributeDescription} = {ProductAttributeValue}";
         }
     }
 
@@ -29,5 +29,10 @@ namespace VenditPublicSdk.Entities
         public bool AttributeRequired { get; set; }
         public string AttributeDescription { get; set; }
         public int SortOrder { get; set; }
+
+        public override string ToString()
+        {
+            return AttributeDescription;
+        }
     }
 }

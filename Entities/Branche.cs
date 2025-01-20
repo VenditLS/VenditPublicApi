@@ -22,5 +22,10 @@ namespace VenditPublicSdk.Entities
         public short Bitvalue { get; set; }
         public bool UseRepairTasks { get; set; }
         public bool UseDor { get; set; }
+
+        public override string ToString()
+        {
+            return BrancheName;
+        }
     }
 }

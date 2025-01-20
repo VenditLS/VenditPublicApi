@@ -10,5 +10,10 @@ namespace VenditPublicSdk.Entities.Lookups
         public short SortOrder { get; set; }
         public bool DeliveryAddress { get; set; }
         public bool InvoiceAddress { get; set; }
+
+        public override string ToString()
+        {
+            return AddressTypeDescription;
+        }
     }
 }

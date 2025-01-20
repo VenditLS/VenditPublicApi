@@ -7,5 +7,10 @@ namespace VenditPublicSdk.Entities.Lookups
     {
         public int FunctionId { get; set; }
         public string FunctionDescription { get; set; }
+
+        public override string ToString()
+        {
+            return FunctionDescription;
+        }
     }
 }

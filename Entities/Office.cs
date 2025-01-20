@@ -10,6 +10,11 @@ namespace VenditPublicSdk.Entities
         public string OfficeCode { get; set; }
         public string OfficeName { get; set; }
         public string GlnNumber { get; set; }
+
+        public override string ToString()
+        {
+            return OfficeName;
+        }
     }
 
     [Serializable]

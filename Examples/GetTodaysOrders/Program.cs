@@ -21,7 +21,7 @@ public static class Program
         OrderResults orderIds;
         try
         {
-            orderIds = await client.FindOrder(OrderFields.OrderDate, DateTime.Today, FilterComparison.GreaterOrEqual);
+            orderIds = await client.Orders.FindOrder(OrderFields.OrderDate, DateTime.Today, FilterComparison.GreaterOrEqual);
         }
         catch (AuthenticationException ex)
         {
@@ -32,7 +32,7 @@ public static class Program
         // Get all Order Details for each order (asynchronously)
         ConfiguredTaskAwaitable<Order>[] orderTasks = new ConfiguredTaskAwaitable<Order>[orderIds.Results.Length];
         for (int t = 0; t < orderTasks.Length; t++)
-            orderTasks[t] = client.GetOrderWithDetails(orderIds.Results[t]).ConfigureAwait(false);
+            orderTasks[t] = client.Orders.GetOrderWithDetails(orderIds.Results[t]).ConfigureAwait(false);
 
         Order[] orders = new Order[orderIds.Results.Length];
 

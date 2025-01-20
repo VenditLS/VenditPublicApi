@@ -10,5 +10,12 @@ namespace VenditPublicSdk.Entities
         public int PhoneTypeId { get; set; }
         public bool DefaultPhone { get; set; }
         public string DialingCode { get; set; }
+
+        public override string ToString()
+        {
+            if (string.IsNullOrWhiteSpace(DialingCode))
+                return PhoneNumber;
+            return $"({DialingCode}) {PhoneNumber}";
+        }
     }
 }

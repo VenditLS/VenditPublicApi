@@ -22,5 +22,10 @@ namespace VenditPublicSdk.Entities
         public decimal? ResaleBonus { get; set; }
         public System.DateTime? ResaleBonusStart { get; set; }
         public System.DateTime? ResaleBonusEnd { get; set; }
+
+        public override string ToString()
+        {
+            return SalesPriceEx.ToString("N2");
+        }
     }
 }

@@ -10,5 +10,10 @@ namespace VenditPublicSdk.Entities
         public string ColorName { get; set; }
         public string ColorSubstitute { get; set; }
         public string ColorCode { get; set; }
+
+        public override string ToString()
+        {
+            return ColorName;
+        }
     }
 }

@@ -16,5 +16,10 @@ namespace VenditPublicSdk.Entities
         public decimal InfoTotalPurchaseOrdered { get; set; }
         public decimal productStock { get; set; }
         public DateTime? OrderedDate { get; set; }
+
+        public override string ToString()
+        {
+            return $"{AvailableStock} ({productStock})";
+        }
     }
 }

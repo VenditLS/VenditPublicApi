@@ -10,5 +10,10 @@ namespace VenditPublicSdk.Entities.Lookups
         public string CountryCode    { get; set; }
         public string DialingCode    { get; set; }
         public string IcpCountryCode { get; set; }
+
+        public override string ToString()
+        {
+            return CountryName;
+        }
     }
 }

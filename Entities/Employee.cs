@@ -68,5 +68,10 @@ namespace VenditPublicSdk.Entities
         public System.Guid OnlineId { get; set; }
         public bool? SmsPlanningReminderActive { get; set; }
         public bool? UseOnlinePlanning { get; set; }
+
+        public override string ToString()
+        {
+            return EmployeeName;
+        }
     }
 }

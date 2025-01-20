@@ -1,24 +1,27 @@
 ﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using VenditPublicSdk.Base;
-using VenditPublicSdk.Entities;
 using VenditPublicSdk.Entities.Internal;
 
 namespace VenditPublicSdk
 {
-    public partial class VenditPublicClient: VenditPublicClientBase
+    public partial class VenditPublicClient : VenditPublicClientBase
     {
         /// <summary>
         /// Recommended constructor
         /// </summary>
-        public VenditPublicClient(VenditPublicClientSettings settings, ILogger logger = null) : base(settings, logger) { }
+        public VenditPublicClient(VenditPublicClientSettings settings, ILogger logger = null) : base(settings, logger)
+        {
+            HookupSections();
+        }
 
         /// <summary>
         /// For users who persist the token in private database
         /// </summary>
-        public VenditPublicClient(string apiKey, string token, DateTime tokenExpire, ILogger logger = null) : base(apiKey, token, tokenExpire, logger) { }
+        public VenditPublicClient(string apiKey, string token, DateTime tokenExpire, ILogger logger = null) : base(apiKey, token, tokenExpire, logger)
+        {
+            HookupSections();
+        }
 
         /// <summary>
         /// For convenience, your requests will be faster if you preserve the token.
@@ -27,53 +30,23 @@ namespace VenditPublicSdk
         /// We recommend persisting the whole VenditPublicClientSettings object and using the constructor that accepts it.
         /// </para>
         /// </summary>
-        public VenditPublicClient(string apiKey, string userName, string password, ILogger logger = null) : base(apiKey, userName, password, logger) { }
-
-
-
-        // --- Employees
-
-        public Task<Employee> GetEmployee(int id, CancellationToken cancel = default)
+        public VenditPublicClient(string apiKey, string userName, string password, ILogger logger = null) : base(apiKey, userName, password, logger)
         {
-            return GetSomething<Employee>(id.ToString(), cancel, "/VenditPublicApi/Employees/");
+            HookupSections();
         }
 
-        public Task<Employee[]> GetEmployees(params int[] ids)
+        private void HookupSections()
         {
-            return GetEmployees(CancellationToken.None, ids);
+            Company = new CompanySection(this);
+            Customers = new CustomersSection(this);
+            Offers = new OffersSection(this);
+            Orders = new OrdersSection(this);
+            Products = new ProductsSection(this);
+            PurchaseOrders = new PurchaseOrdersSection(this);
+            Repairs = new RepairsSection(this);
+            Suppliers = new SuppliersSection(this);
+            TradeIns = new TradeInsSection(this);
+            Transactions = new TransactionsSection(this);
         }
-
-        public Task<Employee[]> GetEmployees(CancellationToken cancel, params int[] ids)
-        {
-            return GetMultiple<Employee, int>(ids, cancel, "/VenditPublicApi/Employees");
-        }
-
-        public Task<Employee[]> GetAllEmployees(CancellationToken cancel = default)
-        {
-            return GetMultiple<Employee>(cancel, "/VenditPublicApi/Employees/GetAll");
-        }
-
-        // --- Offices
-
-        public Task<Office> GetOffice(int id, CancellationToken cancel = default)
-        {
-            return GetSomething<Office>(id.ToString(), cancel, "/VenditPublicApi/Offices/");
-        }
-
-        public Task<Office[]> GetOffices(params int[] ids)
-        {
-            return GetOffices(CancellationToken.None, ids);
-        }
-
-        public Task<Office[]> GetOffices(CancellationToken cancel, params int[] ids)
-        {
-            return GetMultiple<Office, int>(ids, cancel, "/VenditPublicApi/Offices");
-        }
-
-        public Task<Office[]> GetAllOffices(CancellationToken cancel = default)
-        {
-            return GetAll<Office>(cancel, "/VenditPublicApi/Offices");
-        }
-
     }
 }

@@ -221,7 +221,7 @@ namespace VenditPublicSdk.Base
                 if (string.IsNullOrWhiteSpace(_settings.AuthenticationAddress))
                     _settings.AuthenticationAddress = "https://oauth.vendit.online/Api";
 
-                string url = _settings.AuthenticationAddress.TrimEnd('/', '\\') + "/GetToken";
+                string url = $"{_settings.AuthenticationAddress.TrimEnd('/', '\\')}/GetToken";
 
                 MultipartFormDataContent req = new MultipartFormDataContent
                 {
@@ -297,7 +297,7 @@ namespace VenditPublicSdk.Base
 
         }
 
-        public async Task HandleError(HttpResponseMessage response)
+        internal async Task HandleError(HttpResponseMessage response)
         {
             if (!response.IsSuccessStatusCode)
             {
@@ -308,13 +308,13 @@ namespace VenditPublicSdk.Base
                 }
                 catch (Exception ex)
                 {
-                    detail = "Unable to get message content: " + ex.Message;
+                    detail = $"Unable to get message content: {ex.Message}";
                 }
 
                 if (response.StatusCode == HttpStatusCode.Unauthorized)
                     throw new UnauthorizedAccessException(detail);
 
-                string message = string.Concat("Server responded with ", (int)response.StatusCode, " : ", response.ReasonPhrase, " : ", detail);
+                string message = $"Server responded with {(int)response.StatusCode} : {response.ReasonPhrase} : {detail}";
                 Logger?.LogError(message);
                 throw new Exception(message);
             }
@@ -352,7 +352,7 @@ namespace VenditPublicSdk.Base
         {
             ConfiguredTaskAwaitable<HttpClient> clientTask = GetClient(cancel).ConfigureAwait(false);
 
-            url = string.Concat(url.TrimEnd('/', '\\'), '/', id);
+            url = $"{url.TrimEnd('/', '\\')}/{id}";
 
             Logger?.LogTrace(string.Concat("Calling ", url, " (ID = ", id, ")."));
 
@@ -375,7 +375,7 @@ namespace VenditPublicSdk.Base
         {
             ConfiguredTaskAwaitable<HttpClient> clientTask = GetClient(cancel).ConfigureAwait(false);
 
-            url = string.Concat(url.TrimEnd('/', '\\'), "/GetMultiple");
+            url = $"{url.TrimEnd('/', '\\')}/GetMultiple";
 
             Ids<TPrimaryKey> bdy = new Ids<TPrimaryKey>(ids);
 
@@ -403,7 +403,7 @@ namespace VenditPublicSdk.Base
         {
             ConfiguredTaskAwaitable<HttpClient> clientTask = GetClient(cancel).ConfigureAwait(false);
 
-            url = string.Concat(url.TrimEnd('/', '\\'), "/GetAll");
+            url = $"{url.TrimEnd('/', '\\')}/GetAll";
 
             Logger?.LogTrace(string.Concat("Calling ", url));
 
@@ -523,5 +523,46 @@ namespace VenditPublicSdk.Base
             return responseString;
         }
 
+        protected async Task<string> Put(CancellationToken cancel, string url, object bdy)
+        {
+            ConfiguredTaskAwaitable<HttpClient> clientTask = GetClient(cancel).ConfigureAwait(false);
+
+            Logger?.LogTrace(string.Concat("Calling ", url));
+
+            HttpClient client = await clientTask;
+
+            string        payload = JsonConvert.SerializeObject(bdy);
+            StringContent body    = new StringContent(payload, Encoding.UTF8, "application/json");
+
+            HttpResponseMessage response = await client.PutAsync(url, body, cancel).ConfigureAwait(false);
+
+            await HandleError(response);
+
+            string responseString = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+
+            Logger?.LogTrace(string.Concat("Called ", url, " successfully."));
+
+            return responseString;
+        }
+
+        protected async Task<string> Put(CancellationToken cancel, string url)
+        {
+            ConfiguredTaskAwaitable<HttpClient> clientTask = GetClient(cancel).ConfigureAwait(false);
+
+            Logger?.LogTrace(string.Concat("Calling ", url));
+
+            HttpClient client = await clientTask;
+
+            StringContent body = new StringContent(string.Empty, Encoding.UTF8, "application/json");
+            HttpResponseMessage response = await client.PutAsync(url, body, cancel).ConfigureAwait(false);
+
+            await HandleError(response);
+
+            string responseString = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+
+            Logger?.LogTrace(string.Concat("Called ", url, " successfully."));
+
+            return responseString;
+        }
     }
 }

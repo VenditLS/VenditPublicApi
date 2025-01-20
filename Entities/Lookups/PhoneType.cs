@@ -10,6 +10,11 @@ namespace VenditPublicSdk.Entities.Lookups
         public string PhoneTypeDescription { get; set; }
         public PhoneKind PhoneKind { get; set; }
         public short? SortOrder { get; set; }
+
+        public override string ToString()
+        {
+            return PhoneTypeDescription;
+        }
     }
 
     [Serializable]

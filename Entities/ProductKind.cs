@@ -8,5 +8,10 @@ namespace VenditPublicSdk.Entities
         public int ProductKindId { get; set; }
         public int BrancheId { get; set; }
         public string KindDescription { get; set; }
+
+        public override string ToString()
+        {
+            return KindDescription;
+        }
     }
 }

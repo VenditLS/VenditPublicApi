@@ -22,5 +22,10 @@ namespace VenditPublicSdk.Entities
         public int StorageLocationId { get; set; }
         public int OfficeId { get; set; }
         public int ProductId { get; set; }
+
+        public override string ToString()
+        {
+            return Stock.ToString();
+        }
     }
 }

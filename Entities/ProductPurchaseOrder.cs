@@ -19,6 +19,11 @@ namespace VenditPublicSdk.Entities
         public string OrderRemark { get; set; }
         public int? OrderExpectedDeliveryWeek { get; set; }
         public DateTime? OrderExpectedDeliveryDate { get; set; }
+
+        public override string ToString()
+        {
+            return $"[{PurchaseOrderNumber}] {OrderDatetime.ToShortDateString()}";
+        }
     }
 
     [Serializable]
@@ -50,5 +55,10 @@ namespace VenditPublicSdk.Entities
         public int? PromotionProductId { get; set; }
         public Guid LineId { get; set; }
         public decimal AmountDelivered { get; set; }
+
+        public override string ToString()
+        {
+            return $"{Amount} x [{ProductNumber}] {ProductDescription}";
+        }
     }
 }

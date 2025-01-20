@@ -8,5 +8,10 @@ namespace VenditPublicSdk.Entities
         public int BrandId { get; set; }
         public string BrandName { get; set; }
         public string BrandCode { get; set; }
+
+        public override string ToString()
+        {
+            return BrandName;
+        }
     }
 }

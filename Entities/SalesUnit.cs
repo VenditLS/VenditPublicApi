@@ -9,5 +9,10 @@ namespace VenditPublicSdk.Entities
         public string SalesUnitDescription { get; set; }
         public int SortOrder { get; set; }
         public string Code { get; set; }
+
+        public override string ToString()
+        {
+            return $"[{Code}] {SalesUnitDescription}";
+        }
     }
 }

@@ -22,7 +22,7 @@ OrderFilters filters = new OrderFilters(
     new OrderFilter(OrderFields.BrandName, "Contoso", FilterComparison.Contains)
 );
 
-orderIds = await client.FindOrder(filters);
+orderIds = await client.Orders.FindOrder(filters);
 ```
 
 By default all criteria will intersect each other's results (the `AND` operation is allpied between all criteria). This can bechanged by setting the Operator to `OR`, for example when looking for orders containing items with the brands "Contoso" or "Northwind":
@@ -35,7 +35,7 @@ OrderFilters filters = new OrderFilters(
     Operator = FilterOperator.Or
 };
 
-orderIds = await client.FindOrder(filters);
+orderIds = await client.Orders.FindOrder(filters);
 ```
 
 At this time it is not possible to create complex descision trees with one branch of criteria having an `AND` operator and another branche having an `OR` operator.
@@ -55,7 +55,7 @@ OrderFilters filters = new OrderFilters(
     PaginationOffset = 100
 };
 
-nextOrderIds = await client.FindOrder(filters);
+nextOrderIds = await client.Orders.FindOrder(filters);
 ```
 
 The result will also echo the requested `PaginationOffset` in the result.

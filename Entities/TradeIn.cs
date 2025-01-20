@@ -78,5 +78,10 @@ namespace VenditPublicSdk.Entities
         public string BikeImeiNumber { get; set; }
         public string VinNumber { get; set; }
         public string VelopassNumber { get; set; }
+
+        public override string ToString()
+        {
+            return Description;
+        }
     }
 }

@@ -133,7 +133,7 @@ namespace VenditPublicSdk.Entities.Internal
 
         public override string ToString()
         {
-            return "Vendit Public Api Settings for " + ApiKey;
+            return $"Vendit Public Api Settings for {ApiKey}";
         }
     }
 }

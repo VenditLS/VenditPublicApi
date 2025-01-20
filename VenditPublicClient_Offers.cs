@@ -8,61 +8,78 @@ namespace VenditPublicSdk
 {
     public partial class VenditPublicClient : VenditPublicClientBase
     {
-        public Task<OfferResults> FindOffer(OfferFilters filters, CancellationToken cancel = default)
-        {
-            return FindSomething<OfferResults, OfferFilters>(filters, cancel, "/VenditPublicApi/Offers/Find");
-        }
+        public OffersSection Offers;
 
-        public Task<OfferResults> FindOffer(OfferFields field, object value, FilterComparison filterComparison, CancellationToken cancel = default)
+        public class OffersSection
         {
-            return FindSomething<OfferResults, OfferFilters>(new OfferFilters(new OfferFilter(field, value, filterComparison)), cancel, "/VenditPublicApi/Offers/Find");
-        }
+            private VenditPublicClient _client;
 
-        public Task<Offer> GetOffer(int id, CancellationToken cancel = default)
-        {
-            return GetSomething<Offer>(id.ToString(), cancel, "/VenditPublicApi/Offers/");
-        }
+            internal OffersSection(VenditPublicClient client)
+            {
+                _client = client;
+            }
 
-        public Task<Offer[]> GetOffers(params int[] ids)
-        {
-            return GetOffers(CancellationToken.None, ids);
-        }
+            public Task<OfferResults> FindOffer(OfferFilters filters, CancellationToken cancel = default)
+            {
+                return _client.FindSomething<OfferResults, OfferFilters>(filters, cancel, "/VenditPublicApi/Offers/Find");
+            }
 
-        public Task<Offer[]> GetOffers(CancellationToken cancel, params int[] ids)
-        {
-            return GetMultiple<Offer, int>(ids, cancel, "/VenditPublicApi/Offers");
-        }
+            public Task<OfferResults> FindOffer(OfferFields field, object value, FilterComparison filterComparison, CancellationToken cancel = default)
+            {
+                return _client.FindSomething<OfferResults, OfferFilters>(new OfferFilters(new OfferFilter(field, value, filterComparison)), cancel, "/VenditPublicApi/Offers/Find");
+            }
 
-        public Task<Offer> GetOfferWithDetails(int id, CancellationToken cancel = default)
-        {
-            return GetSomething<Offer>(id.ToString(), cancel, "/VenditPublicApi/Offers/GetWithDetails");
-        }
+            public Task<Offer> GetOffer(int id, CancellationToken cancel = default)
+            {
+                return _client.GetSomething<Offer>(id.ToString(), cancel, "/VenditPublicApi/Offers/");
+            }
 
-        public Task<long[]> GetOfferIdsForCustomer(int customerId, CancellationToken cancel = default)
-        {
-            return GetSomething<long[]>(customerId.ToString(), cancel, "/VenditPublicApi/Offers/GetForCustomer");
-        }
+            public Task<Offer[]> GetOffers(params int[] ids)
+            {
+                return GetOffers(CancellationToken.None, ids);
+            }
 
-        // OfferStatus
+            public Task<Offer[]> GetOffers(CancellationToken cancel, params int[] ids)
+            {
+                return _client.GetMultiple<Offer, int>(ids, cancel, "/VenditPublicApi/Offers");
+            }
 
-        public Task<OfferStatus> GetOfferStatus(int statusId, CancellationToken cancel = default)
-        {
-            return GetSomething<OfferStatus>(statusId.ToString(), cancel, "/VenditPublicApi/Lookups/OfferStatuses/");
-        }
+            public Task<Offer> GetOfferWithDetails(int id, CancellationToken cancel = default)
+            {
+                return _client.GetSomething<Offer>(id.ToString(), cancel, "/VenditPublicApi/Offers/GetWithDetails");
+            }
 
-        public Task<OfferStatus[]> GetOfferStatuses(params int[] ids)
-        {
-            return GetOfferStatuses(CancellationToken.None, ids);
-        }
+            public Task<long[]> GetOfferIdsForCustomer(int customerId, CancellationToken cancel = default)
+            {
+                return _client.GetSomething<long[]>(customerId.ToString(), cancel, "/VenditPublicApi/Offers/GetForCustomer");
+            }
 
-        public Task<OfferStatus[]> GetOfferStatuses(CancellationToken cancel, params int[] ids)
-        {
-            return GetMultiple<OfferStatus, int>(ids, cancel, "/VenditPublicApi/Lookups/OfferStatuses/");
-        }
+            // OfferStatus
 
-        public Task<OfferStatus[]> GetAllOfferStatuses(CancellationToken cancel = default)
-        {
-            return GetAll<OfferStatus>(cancel, "/VenditPublicApi/Lookups/OfferStatuses/");
+            public Task<OfferStatus> GetOfferStatus(int statusId, CancellationToken cancel = default)
+            {
+                return _client.GetSomething<OfferStatus>(statusId.ToString(), cancel, "/VenditPublicApi/Lookups/OfferStatuses/");
+            }
+
+            public Task<OfferStatus[]> GetOfferStatuses(params int[] ids)
+            {
+                return GetOfferStatuses(CancellationToken.None, ids);
+            }
+
+            public Task<OfferStatus[]> GetOfferStatuses(CancellationToken cancel, params int[] ids)
+            {
+                return _client.GetMultiple<OfferStatus, int>(ids, cancel, "/VenditPublicApi/Lookups/OfferStatuses/");
+            }
+
+            public Task<OfferStatus[]> GetAllOfferStatuses(CancellationToken cancel = default)
+            {
+                return _client.GetAll<OfferStatus>(cancel, "/VenditPublicApi/Lookups/OfferStatuses/");
+            }
+
+            public Task UpdateStatus(int offerId, int newOfferStatusId, CancellationToken cancel = default)
+            {
+                return _client.Put(cancel, $"/VenditPublicApi/Offers/UpdateStatus/{offerId}/{newOfferStatusId}");
+            }
         }
     }
 }

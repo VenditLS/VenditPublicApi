@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 
 namespace VenditPublicSdk.Entities
 {
@@ -26,5 +27,19 @@ namespace VenditPublicSdk.Entities
         public DateTime? ModifiedDatetime { get; set; }
         public string ModifiedBy { get; set; }
         public DateTime? BatchDate { get; set; }
+
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+            if (!string.IsNullOrWhiteSpace(BrandName))
+                sb.Append(BrandName).Append(" ");
+            sb.Append(ActionPriceGroupName).Append(" ");
+            if (SalesPriceExVat > 0)
+                sb.Append(SalesPriceExVat.ToString("N2"));
+            if(DiscountPercentage > 0)
+                sb.Append(DiscountPercentage.ToString("N2")).Append('%');
+
+            return sb.ToString();
+        }
     }
 }

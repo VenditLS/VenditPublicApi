@@ -10,5 +10,10 @@ namespace VenditPublicSdk.Entities
         public string SizeName { get; set; }
         public string SizeSubstitute { get; set; }
         public short SortOrder { get; set; }
+
+        public override string ToString()
+        {
+            return SizeName;
+        }
     }
 }

@@ -28,5 +28,10 @@ namespace VenditPublicSdk.Entities
         public ProductPurchasePrice ProductPurchasePrice { get; set; }
         public Results<SupplierOrder> ProductPurchaseHistory { get; set; }
         public Supplier Supplier { get; set; }
+
+        public override string ToString()
+        {
+            return $"[{SupplierProductNumber}] {Supplier}";
+        }
     }
 }

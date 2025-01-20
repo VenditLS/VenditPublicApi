@@ -8,5 +8,11 @@ namespace VenditPublicSdk.Entities.Lookups
         public int SexId { get; set; }
         public int LanguageId { get; set; }
         public string DisplayName { get; set; }
+
+
+        public override string ToString()
+        {
+            return DisplayName;
+        }
     }
 }

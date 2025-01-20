@@ -41,5 +41,10 @@ namespace VenditPublicSdk.Entities
         public string MintatonPosDealId { get; set; }
         public int? StockFinancialCodeId { get; set; }
         public int? CostofsalesFinancialCodeId { get; set; }
+
+        public override string ToString()
+        {
+            return GroupDescription;
+        }
     }
 }

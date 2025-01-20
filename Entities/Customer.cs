@@ -74,6 +74,11 @@ namespace VenditPublicSdk.Entities
             get { return (EdifactTypeEnum?)EdifactTypeEnum; }
             set { EdifactTypeEnum = (int?)value; }
         }
+
+        public override string ToString()
+        {
+            return $"[{CustomerNumber2}] {CompanyName}";
+        }
     }
 
     [Serializable]

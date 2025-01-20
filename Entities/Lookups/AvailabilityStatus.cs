@@ -10,5 +10,10 @@ namespace VenditPublicSdk.Entities.Lookups
         public int DisplayValue { get; set; }
         public string DisplayName { get; set; }
         public bool DefaultOption { get; set; }
+
+        public override string ToString()
+        {
+            return DisplayName;
+        }
     }
 }

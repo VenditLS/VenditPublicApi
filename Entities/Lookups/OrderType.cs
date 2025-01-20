@@ -12,5 +12,10 @@ namespace VenditPublicSdk.Entities.Lookups
         public short SortOrder { get; set; }
         public int? StatusColor { get; set; }
         public int? FontColor { get; set; }
+
+        public override string ToString()
+        {
+            return OrderTypeDescription;
+        }
     }
 }
