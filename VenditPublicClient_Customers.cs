@@ -279,6 +279,49 @@ namespace VenditPublicSdk
                 return _client.GetAll<PhoneType>(cancel, "/VenditPublicApi/Lookups/PhoneTypes/");
             }
 
+            // CustomerGroup
+
+            public Task<CustomerGroup> GetCustomerGroup(int id, CancellationToken cancel = default)
+            {
+                return _client.GetSomething<CustomerGroup>(id.ToString(), cancel, "/VenditPublicApi/Lookups/CustomerGroups/");
+            }
+
+            public Task<CustomerGroup[]> GetCustomerGroups(params int[] ids)
+            {
+                return GetCustomerGroups(CancellationToken.None, ids);
+            }
+
+            public Task<CustomerGroup[]> GetCustomerGroups(CancellationToken cancel, params int[] ids)
+            {
+                return _client.GetMultiple<CustomerGroup, int>(ids, cancel, "/VenditPublicApi/Lookups/CustomerGroups/");
+            }
+
+            // Legacy, no longer used
+            // public Task<CustomerGroup[]> GetCustomerGroupsByBitValue(long bitValue)
+            // {
+            //     return GetCustomerGroupsByBitValue(bitValue, CancellationToken.None);
+            // }
+
+            // public Task<CustomerGroup[]> GetCustomerGroupsByBitValue(long bitValue, CancellationToken cancel)
+            // {
+            //     return _client.GetMultiple<CustomerGroup>(cancel, "/VenditPublicApi/Lookups/CustomerGroups/GetByBitValue/" + bitValue);
+            // }
+
+            public Task<CustomerGroup[]> GetCustomerGroupsByCustomer(long customerId)
+            {
+                return GetCustomerGroupsByCustomer(customerId, CancellationToken.None);
+            }
+
+            public Task<CustomerGroup[]> GetCustomerGroupsByCustomer(long customerId, CancellationToken cancel)
+            {
+                return _client.GetMultiple<CustomerGroup>(cancel, "/VenditPublicApi/Lookups/CustomerGroups/GetByCustomer/" + customerId);
+            }
+
+            public Task<CustomerGroup[]> GetAllCustomerGroups(CancellationToken cancel = default)
+            {
+                return _client.GetAll<CustomerGroup>(cancel, "/VenditPublicApi/Lookups/CustomerGroups/");
+            }
+
             // --- Import
 
             public async Task<int> ImportCustomers(CancellationToken cancel = default, params ImportCustomer[] import)

@@ -4,8 +4,10 @@ using VenditPublicSdk.Entities.Internal;
 namespace VenditPublicSdk.Entities.Import
 {
     [Serializable]
-    public class ImportCustomer:Customer
+    public class ImportCustomer : Customer
     {
         public Results<ImportAddress> Addresses { get; set; }
-}
+
+        public Results<ImportCustomerGroup> CustomerGroups { get; set; }
+    }
 }

@@ -26,6 +26,7 @@ namespace VenditPublicSdk.Entities
         public decimal PickinglistAutoInvoiceAmount { get; set; }
         public int PickinglistPrintInvoiceShort { get; set; }
         public string VatNumber { get; set; }
+        [Obsolete("Legacy field, will be removed.")]
         public int CustomerGroupBitvalue { get; set; }
         public string HintInfo { get; set; }
         public string ExtraInfo { get; set; }
