@@ -29,22 +29,22 @@ namespace VenditPublicSdk
                 return _client.FindSomething<OfferResults, OfferFilters>(new OfferFilters(new OfferFilter(field, value, filterComparison)), cancel, "/VenditPublicApi/Offers/Find");
             }
 
-            public Task<Offer> GetOffer(int id, CancellationToken cancel = default)
+            public Task<Offer> GetOffer(long id, CancellationToken cancel = default)
             {
                 return _client.GetSomething<Offer>(id.ToString(), cancel, "/VenditPublicApi/Offers/");
             }
 
-            public Task<Offer[]> GetOffers(params int[] ids)
+            public Task<Offer[]> GetOffers(params long[] ids)
             {
                 return GetOffers(CancellationToken.None, ids);
             }
 
-            public Task<Offer[]> GetOffers(CancellationToken cancel, params int[] ids)
+            public Task<Offer[]> GetOffers(CancellationToken cancel, params long[] ids)
             {
-                return _client.GetMultiple<Offer, int>(ids, cancel, "/VenditPublicApi/Offers");
+                return _client.GetMultiple<Offer, long>(ids, cancel, "/VenditPublicApi/Offers");
             }
 
-            public Task<Offer> GetOfferWithDetails(int id, CancellationToken cancel = default)
+            public Task<Offer> GetOfferWithDetails(long id, CancellationToken cancel = default)
             {
                 return _client.GetSomething<Offer>(id.ToString(), cancel, "/VenditPublicApi/Offers/GetWithDetails");
             }
@@ -76,7 +76,7 @@ namespace VenditPublicSdk
                 return _client.GetAll<OfferStatus>(cancel, "/VenditPublicApi/Lookups/OfferStatuses/");
             }
 
-            public Task UpdateStatus(int offerId, int newOfferStatusId, CancellationToken cancel = default)
+            public Task UpdateStatus(long offerId, int newOfferStatusId, CancellationToken cancel = default)
             {
                 return _client.Put(cancel, $"/VenditPublicApi/Offers/UpdateStatus/{offerId}/{newOfferStatusId}");
             }

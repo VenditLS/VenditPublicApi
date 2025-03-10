@@ -29,19 +29,19 @@ namespace VenditPublicSdk
                 return _client.FindSomething<OrderResults, OrderFilters>(new OrderFilters(new OrderFilter(field, value, filterComparison)), cancel, "/VenditPublicApi/Orders/Find");
             }
 
-            public Task<Order> GetOrder(int id, CancellationToken cancel = default)
+            public Task<Order> GetOrder(long id, CancellationToken cancel = default)
             {
                 return _client.GetSomething<Order>(id.ToString(), cancel, "/VenditPublicApi/Orders/");
             }
 
-            public Task<Order[]> GetOrders(params int[] ids)
+            public Task<Order[]> GetOrders(params long[] ids)
             {
                 return GetOrders(CancellationToken.None, ids);
             }
 
-            public Task<Order[]> GetOrders(CancellationToken cancel, params int[] ids)
+            public Task<Order[]> GetOrders(CancellationToken cancel, params long[] ids)
             {
-                return _client.GetMultiple<Order, int>(ids, cancel, "/VenditPublicApi/Orders");
+                return _client.GetMultiple<Order, long>(ids, cancel, "/VenditPublicApi/Orders");
             }
 
             public Task<long[]> GetOrderIdsForCustomer(int customerId, CancellationToken cancel = default)
@@ -49,7 +49,7 @@ namespace VenditPublicSdk
                 return _client.GetSomething<long[]>(customerId.ToString(), cancel, "/VenditPublicApi/Orders/GetForCustomer");
             }
 
-            public Task<Order> GetOrderWithDetails(int id, CancellationToken cancel = default)
+            public Task<Order> GetOrderWithDetails(long id, CancellationToken cancel = default)
             {
                 return _client.GetSomething<Order>(id.ToString(), cancel, "/VenditPublicApi/Orders/GetWithDetails");
             }
@@ -76,7 +76,7 @@ namespace VenditPublicSdk
                 return _client.GetAll<OrderStatus>(cancel, "/VenditPublicApi/Lookups/OrderStatuses/");
             }
 
-            public Task UpdateStatus(int orderId, int newOrderStatusId, CancellationToken cancel = default)
+            public Task UpdateStatus(long orderId, int newOrderStatusId, CancellationToken cancel = default)
             {
                 return _client.Put(cancel, $"/VenditPublicApi/Orders/UpdateStatus/{orderId}/{newOrderStatusId}");
             }
