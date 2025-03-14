@@ -12,7 +12,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Title>Vendit Public API SDK</Title>
-    <Version>2025.01.20.001</Version>
+    <Version>2025.03.14.001</Version>
     <Authors>VenditLS, mlsomers</Authors>
     <Company>Vendit B.V.</Company>
     <Product>Vendit Public API</Product>
