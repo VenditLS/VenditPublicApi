@@ -134,3 +134,5 @@ public static class Program
 ## documentation
 
 More info can be found in the [Docs](/Docs/Search.md).
+
+Also check the [Frequently Asked Questions](/Docs/Faq.md).

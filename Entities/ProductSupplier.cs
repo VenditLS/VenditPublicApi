@@ -1,5 +1,4 @@
 ﻿using System;
-using VenditPublicSdk.Entities.Internal;
 
 namespace VenditPublicSdk.Entities
 {
@@ -26,12 +25,11 @@ namespace VenditPublicSdk.Entities
         public Office Office { get; set; }
         public bool Preferred { get; set; }
         public ProductPurchasePrice ProductPurchasePrice { get; set; }
-        public Results<SupplierOrder> ProductPurchaseHistory { get; set; }
         public Supplier Supplier { get; set; }
 
         public override string ToString()
         {
-            return $"[{SupplierProductNumber}] {Supplier}";
+            return $"[{SupplierProductNumber}] {Supplier} {ProductPurchasePrice}";
         }
     }
 }

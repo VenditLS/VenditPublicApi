@@ -163,7 +163,7 @@ namespace VenditPublicSdk
             }
 
             /// <summary>
-            /// Returns purchase prices of the specified product
+            /// Returns purchase prices of the specified product, note that GetSuppliers includes this info together with the supplier order numbers
             /// </summary>
             /// <param name="productId">Product ID</param>
             /// <param name="sizeColorId">(optional) Size-Color Id, if left 0 prices for multiple size-color's will be returned where deviating prices are defined.</param>
@@ -173,6 +173,20 @@ namespace VenditPublicSdk
             public async Task<ProductPurchasePrice[]> GetPurchasePrices(int productId, int sizeColorId = 0, int officeId = 0, CancellationToken cancel = default)
             {
                 Results<ProductPurchasePrice> items = await _client.GetSomething<Results<ProductPurchasePrice>>(cancel, $"/VenditPublicApi/Products/{productId}/GetPurchasePrices/{sizeColorId}/{officeId}");
+                return items.Items;
+            }
+
+            /// <summary>
+            /// Returns suppliers of the specified product
+            /// </summary>
+            /// <param name="productId">Product ID</param>
+            /// <param name="sizeColorId">(optional) Size-Color Id, if left 0 prices for multiple size-color's will be returned where deviating prices are defined.</param>
+            /// <param name="officeId">(optional) Office ID, if 0 (default) then the office assigned to the API-key will be used, if -1 prices for all offices will be returned.</param>
+            /// <param name="cancel">Cancellation token</param>
+            /// <returns>List of suppliers and the supplier product numbers, including purchase price (if user has sufficient rights)</returns>
+            public async Task<ProductSupplier[]> GetSuppliers(int productId, int sizeColorId = 0, int officeId = 0, CancellationToken cancel = default)
+            {
+                Results<ProductSupplier> items = await _client.GetSomething<Results<ProductSupplier>>(cancel, $"/VenditPublicApi/Products/{productId}/GetSuppliers/{sizeColorId}/{officeId}");
                 return items.Items;
             }
 

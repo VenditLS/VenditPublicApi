@@ -531,8 +531,8 @@ namespace VenditPublicSdk.Base
 
             HttpClient client = await clientTask;
 
-            string        payload = JsonConvert.SerializeObject(bdy);
-            StringContent body    = new StringContent(payload, Encoding.UTF8, "application/json");
+            string payload = JsonConvert.SerializeObject(bdy, new JsonSerializerSettings(){DefaultValueHandling = DefaultValueHandling.Ignore, NullValueHandling = NullValueHandling.Ignore});
+            StringContent body = new StringContent(payload, Encoding.UTF8, "application/json");
 
             HttpResponseMessage response = await client.PutAsync(url, body, cancel).ConfigureAwait(false);
 
