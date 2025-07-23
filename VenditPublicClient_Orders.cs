@@ -54,6 +54,11 @@ namespace VenditPublicSdk
                 return _client.GetSomething<Order>(id.ToString(), cancel, "/VenditPublicApi/Orders/GetWithDetails");
             }
 
+            public Task<long[]> GetAllOrderIds(CancellationToken cancel = default)
+            {
+                return _client.GetSomething<long[]>(cancel, $"/VenditPublicApi/Orders/GetAllIds");
+            }
+
             // OrderStatus
 
             public Task<OrderStatus> GetOrderStatus(int statusId, CancellationToken cancel = default)

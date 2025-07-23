@@ -57,6 +57,11 @@ namespace VenditPublicSdk
                 return _client.GetMultiple<Address>(cancel, $"/VenditPublicApi/Suppliers/GetAddresses/{supplierId}");
             }
 
+            public Task<int[]> GetAllSupplierIds(CancellationToken cancel = default)
+            {
+                return _client.GetSomething<int[]>(cancel, $"/VenditPublicApi/Suppliers/GetAllIds");
+            }
+
             // --- Import
 
             public async Task<int> ImportSuppliers(CancellationToken cancel = default, params ImportSupplier[] import)

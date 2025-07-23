@@ -29,24 +29,29 @@ namespace VenditPublicSdk
                 return _client.FindSomething<PurchaseOrderResults, PurchaseOrderFilters>(new PurchaseOrderFilters(new PurchaseOrderFilter(field, value, filterComparison)), cancel, "/VenditPublicApi/PurchaseOrders/Find");
             }
 
-            public Task<ProductPurchaseOrder> GetPurchaseOrder(int id, CancellationToken cancel = default)
+            public Task<ProductPurchaseOrder> GetPurchaseOrder(long id, CancellationToken cancel = default)
             {
                 return _client.GetSomething<ProductPurchaseOrder>(id.ToString(), cancel, "/VenditPublicApi/PurchaseOrders/");
             }
 
-            public Task<ProductPurchaseOrder[]> GetPurchaseOrders(params int[] ids)
+            public Task<ProductPurchaseOrder[]> GetPurchaseOrders(params long[] ids)
             {
                 return GetPurchaseOrders(CancellationToken.None, ids);
             }
 
-            public Task<ProductPurchaseOrder[]> GetPurchaseOrders(CancellationToken cancel, params int[] ids)
+            public Task<ProductPurchaseOrder[]> GetPurchaseOrders(CancellationToken cancel, params long[] ids)
             {
-                return _client.GetMultiple<ProductPurchaseOrder, int>(ids, cancel, "/VenditPublicApi/PurchaseOrders");
+                return _client.GetMultiple<ProductPurchaseOrder, long>(ids, cancel, "/VenditPublicApi/PurchaseOrders");
             }
 
-            public Task<ProductPurchaseOrder> GetPurchaseOrderWithDetails(int id, CancellationToken cancel = default)
+            public Task<ProductPurchaseOrder> GetPurchaseOrderWithDetails(long id, CancellationToken cancel = default)
             {
                 return _client.GetSomething<ProductPurchaseOrder>(id.ToString(), cancel, "/VenditPublicApi/PurchaseOrders/GetWithDetails");
+            }
+
+            public Task<long[]> GetAllPurchaseOrderIds(CancellationToken cancel = default)
+            {
+                return _client.GetSomething<long[]>(cancel, $"/VenditPublicApi/PurchaseOrders/GetAllIds");
             }
         }
     }

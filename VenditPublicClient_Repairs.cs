@@ -60,6 +60,11 @@ namespace VenditPublicSdk
                 return _client.GetSomething<Repair>(id.ToString(), cancel, "/VenditPublicApi/Repairs/GetWithDetails");
             }
 
+            public Task<int[]> GetAllRepairIds(CancellationToken cancel = default)
+            {
+                return _client.GetSomething<int[]>(cancel, $"/VenditPublicApi/Repairs/GetAllIds");
+            }
+
             // RepairStatus
 
             public Task<RepairStatus> GetRepairStatus(int statusId, CancellationToken cancel = default)

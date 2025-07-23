@@ -9,5 +9,7 @@ namespace VenditPublicSdk.Entities
         public int ProductId { get; set; }
         public int OfficeId { get; set; }
         public int VatId { get; set; }
+
+        public Vat Vat{get; set; }
     }
 }

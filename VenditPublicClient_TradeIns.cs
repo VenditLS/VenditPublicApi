@@ -44,6 +44,11 @@ namespace VenditPublicSdk
             {
                 return _client.GetMultiple<TradeIn, int>(ids, cancel, "/VenditPublicApi/TradeIns");
             }
+
+            public Task<int[]> GetAllTradeInIds(CancellationToken cancel = default)
+            {
+                return _client.GetSomething<int[]>(cancel, $"/VenditPublicApi/TradeIns/GetAllIds");
+            }
         }
     }
 }

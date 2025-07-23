@@ -54,6 +54,11 @@ namespace VenditPublicSdk
                 return _client.GetSomething<long[]>(customerId.ToString(), cancel, "/VenditPublicApi/Offers/GetForCustomer");
             }
 
+            public Task<long[]> GetAllOfferIds(CancellationToken cancel = default)
+            {
+                return _client.GetSomething<long[]>(cancel, $"/VenditPublicApi/Offers/GetAllIds");
+            }
+
             // OfferStatus
 
             public Task<OfferStatus> GetOfferStatus(int statusId, CancellationToken cancel = default)
@@ -80,6 +85,7 @@ namespace VenditPublicSdk
             {
                 return _client.Put(cancel, $"/VenditPublicApi/Offers/UpdateStatus/{offerId}/{newOfferStatusId}");
             }
+
         }
     }
 }

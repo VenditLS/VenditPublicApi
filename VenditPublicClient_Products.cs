@@ -315,6 +315,38 @@ namespace VenditPublicSdk
                 return _client.GetAll<Branche>(cancel, "/VenditPublicApi/Lookups/Branches/");
             }
 
+            // --- Vat
+
+            public Task<ProductVat[]> GetVat(int productId, int officeId, CancellationToken cancel = default)
+            {
+                return _client.GetSomething<ProductVat[]>(cancel, $"/VenditPublicApi/Products/{productId}/GetVat/{officeId}");
+            }
+
+            public Task<ProductVat[]> GetVat(int productId, CancellationToken cancel = default)
+            {
+                return _client.GetSomething<ProductVat[]>(cancel, $"/VenditPublicApi/Products/{productId}/GetVat");
+            }
+
+            public Task<Vat> GetVatDefinition(int VatId, CancellationToken cancel = default)
+            {
+                return _client.GetSomething<Vat>(VatId.ToString(), cancel, "/VenditPublicApi/Lookups/VatDefinitions/");
+            }
+
+            public Task<Vat[]> GetVatDefinitions(params int[] ids)
+            {
+                return GetVatDefinitions(CancellationToken.None, ids);
+            }
+
+            public Task<Vat[]> GetVatDefinitions(CancellationToken cancel, params int[] ids)
+            {
+                return _client.GetMultiple<Vat, int>(ids, cancel, "/VenditPublicApi/Lookups/VatDefinitions/");
+            }
+
+            public Task<Vat[]> GetAllVatDefinitions(CancellationToken cancel = default)
+            {
+                return _client.GetAll<Vat>(cancel, "/VenditPublicApi/Lookups/VatDefinitions/");
+            }
+
             // --- Import
 
             public async Task<int> ImportProducts(CancellationToken cancel = default, params ImportProduct[] import)
