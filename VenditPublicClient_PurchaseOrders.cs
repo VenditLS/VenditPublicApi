@@ -2,6 +2,8 @@
 using System.Threading.Tasks;
 using VenditPublicSdk.Base;
 using VenditPublicSdk.Entities;
+using VenditPublicSdk.Entities.Import;
+using VenditPublicSdk.Entities.Internal;
 using VenditPublicSdk.Find;
 
 namespace VenditPublicSdk
@@ -52,6 +54,73 @@ namespace VenditPublicSdk
             public Task<long[]> GetAllPurchaseOrderIds(CancellationToken cancel = default)
             {
                 return _client.GetSomething<long[]>(cancel, $"/VenditPublicApi/PurchaseOrders/GetAllIds");
+            }
+
+            // --- HistoryPurchaseOrder
+
+            public Task<HistoryPurchaseOrderResults> FindHistoryPurchaseOrder(HistoryPurchaseOrderFilters filters, CancellationToken cancel = default)
+            {
+                return _client.FindSomething<HistoryPurchaseOrderResults, HistoryPurchaseOrderFilters>(filters, cancel, "/VenditPublicApi/HistoryPurchaseOrders/Find");
+            }
+
+            public Task<HistoryPurchaseOrderResults> FindHistoryPurchaseOrder(HistoryPurchaseOrderFields field, object value, FilterComparison filterComparison, CancellationToken cancel = default)
+            {
+                return _client.FindSomething<HistoryPurchaseOrderResults, HistoryPurchaseOrderFilters>(new HistoryPurchaseOrderFilters(new HistoryPurchaseOrderFilter(field, value, filterComparison)), cancel, "/VenditPublicApi/HistoryPurchaseOrders/Find");
+            }
+
+            public Task<HistoryPurchaseHeader> GetHistoryPurchaseOrder(long id, CancellationToken cancel = default)
+            {
+                return _client.GetSomething<HistoryPurchaseHeader>(id.ToString(), cancel, "/VenditPublicApi/HistoryPurchaseOrders/");
+            }
+
+            public Task<HistoryPurchaseHeader[]> GetHistoryPurchaseOrders(params long[] ids)
+            {
+                return GetHistoryPurchaseOrders(CancellationToken.None, ids);
+            }
+
+            public Task<HistoryPurchaseHeader[]> GetHistoryPurchaseOrders(CancellationToken cancel, params long[] ids)
+            {
+                return _client.GetMultiple<HistoryPurchaseHeader, long>(ids, cancel, "/VenditPublicApi/HistoryPurchaseOrders");
+            }
+
+            public Task<HistoryPurchaseHeader> GetHistoryPurchaseOrderWithDetails(long id, CancellationToken cancel = default)
+            {
+                return _client.GetSomething<HistoryPurchaseHeader>(id.ToString(), cancel, "/VenditPublicApi/HistoryPurchaseOrders/GetWithDetails");
+            }
+
+            // --- ProductPreorder
+
+            public Task<PrePurchaseOrder> GetPrePurchaseOrder(int prePurchaseOrderId, CancellationToken cancel = default)
+            {
+                return _client.GetSomething<PrePurchaseOrder>(prePurchaseOrderId.ToString(), cancel, "/VenditPublicApi/PrePurchaseOrders/");
+            }
+
+            public Task<PrePurchaseOrder[]> GetPrePurchaseOrders(params int[] ids)
+            {
+                return GetPrePurchaseOrders(CancellationToken.None, ids);
+            }
+
+            public Task<PrePurchaseOrder[]> GetPrePurchaseOrders(CancellationToken cancel, params int[] ids)
+            {
+                return _client.GetMultiple<PrePurchaseOrder, int>(ids, cancel, "/VenditPublicApi/PrePurchaseOrders/");
+            }
+
+            public Task<PrePurchaseOrder[]> GetAllPrePurchaseOrders(CancellationToken cancel = default)
+            {
+                return _client.GetAll<PrePurchaseOrder>(cancel, "/VenditPublicApi/PrePurchaseOrders/");
+            }
+
+            public async Task<int> ImportProductsToBeOrdered(CancellationToken cancel, params PrePurchaseOrder[] import)
+            {
+                if (import is null || import.Length < 1)
+                    return 0;
+
+                string reply = await _client.Put(cancel, "/VenditPublicApi/PrePurchaseOrders/Import", new Results<PrePurchaseOrder>(import));
+                int    ret   = 0;
+                if (int.TryParse(reply, out ret))
+                    return ret;
+
+                return -1;
             }
         }
     }

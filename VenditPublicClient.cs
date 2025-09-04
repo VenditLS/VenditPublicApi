@@ -47,6 +47,7 @@ namespace VenditPublicSdk
             Suppliers = new SuppliersSection(this);
             TradeIns = new TradeInsSection(this);
             Transactions = new TransactionsSection(this);
+            StockOfficeTransfers = new StockOfficeTransferSection(this);
         }
     }
 }
