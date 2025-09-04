@@ -4,7 +4,7 @@
 
 There is an architectural reason for that: The Database is the least scalable component in a chain of services. A query with many joins is prone to take allot more time than one with few joins. A long running complex query can cause problems for other queries that may be more important (registering a sale or an order is generally considered more important than collecting search results). At Vendit we have no control over how 3rd parties are going to call our API's. So for the public API's we have a best effort policy to prevent heavy load on the database in a single transaction.
 
-It is true that multiple `Get___WithDetails()` calls have a greater overhead than one call for multiple results would have, however most of that overhead is on the scalable part of our system (the services queueing queries) rather than the database itself. Even when a multitude of small queries are called multi-threaded, the important jobs can be done in-between because the smaller ones do not form one behemoth transaction. When a timeouts occur it is a double loss because all the work the database already had done is also lost and will likely have to be done over.
+It is true that multiple `Get___WithDetails()` calls have a greater overhead than one call for multiple results would have, however most of that overhead is on the scalable part of our system (the services queueing queries) rather than the database itself. Even when a multitude of small queries are called multi-threaded, the important jobs can be done in-between because the smaller ones do not form one behemoth transaction. When timeouts occur it is a double loss because all the work the database already had done is also lost and will likely have to be done over.
 
 ## Why is the API so slow?
 
