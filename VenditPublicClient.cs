@@ -1,5 +1,5 @@
-﻿using System;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
+using System;
 using VenditPublicSdk.Base;
 using VenditPublicSdk.Entities.Internal;
 
@@ -48,6 +48,7 @@ namespace VenditPublicSdk
             TradeIns = new TradeInsSection(this);
             Transactions = new TransactionsSection(this);
             StockOfficeTransfers = new StockOfficeTransferSection(this);
+            ProductStocks = new ProductStockSection(this);
         }
     }
 }

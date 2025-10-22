@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using VenditPublicSdk.Entities;
 using VenditPublicSdk.Find.Base;
 
 namespace VenditPublicSdk.Find
@@ -15,7 +16,7 @@ namespace VenditPublicSdk.Find
         public CustomerFilters(params CustomerFilter[] filters) : base(filters) { }
     }
 
-    public class CustomerResults : BaseResultsReply<int>
+    public class CustomerResults : BaseResultsReply<int,Customer>
     {
     }
 

@@ -58,5 +58,10 @@ namespace VenditPublicSdk.Find.Base
         {
             get { return FieldFilters.Length; }
         }
+
+        /// <summary>
+        /// Will call GetMultiple and add the results to the reply.
+        /// </summary>
+        public bool IncludeEntities { get; set; } = false;
     }
 }

@@ -243,7 +243,7 @@ namespace VenditPublicSdk.Base
 
                 string rep = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
                 if (string.IsNullOrWhiteSpace(rep))
-                    throw new Exception("Emty response from Authorization server.");
+                    throw new Exception("Empty response from Authorization server.");
                 TokenResponse tr = JsonConvert.DeserializeObject<TokenResponse>(rep);
                 if (tr == null)
                     throw new Exception("Unexpected reply from Authorization server.");
@@ -347,6 +347,20 @@ namespace VenditPublicSdk.Base
             return results;
         }
 
+        protected async Task<HttpResponseMessage> GetRaw(CancellationToken cancel, string url)
+        {
+            ConfiguredTaskAwaitable<HttpClient> clientTask = GetClient(cancel).ConfigureAwait(false);
+            
+            Logger?.LogTrace(string.Concat("Calling ", url));
+
+            HttpClient client = await clientTask;
+
+            HttpResponseMessage response = await client.GetAsync(url, cancel).ConfigureAwait(false);
+
+            await HandleError(response);
+
+            return response;
+        }
 
         protected async Task<TResults> GetSomething<TResults>(string id, CancellationToken cancel, string url)
         {

@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using VenditPublicSdk.Base;
 using VenditPublicSdk.Entities;
+using VenditPublicSdk.Entities.Lookups;
 using VenditPublicSdk.Find;
 
 namespace VenditPublicSdk
@@ -52,6 +53,28 @@ namespace VenditPublicSdk
             public Task<Transaction> GetTransactionWithDetails(int id, CancellationToken cancel = default)
             {
                 return _client.GetSomething<Transaction>(id.ToString(), cancel, "/VenditPublicApi/Transactions/GetWithDetails");
+            }
+
+            // ReturnReason
+
+            public Task<ReturnReason> GetReturnReason(int id, CancellationToken cancel = default)
+            {
+                return _client.GetSomething<ReturnReason>(id.ToString(), cancel, "/VenditPublicApi/Lookups/ReturnReasons/");
+            }
+
+            public Task<ReturnReason[]> GetReturnReasons(params int[] ids)
+            {
+                return GetReturnReasons(CancellationToken.None, ids);
+            }
+
+            public Task<ReturnReason[]> GetReturnReasons(CancellationToken cancel, params int[] ids)
+            {
+                return _client.GetMultiple<ReturnReason, int>(ids, cancel, "/VenditPublicApi/Lookups/ReturnReasons/");
+            }
+
+            public Task<ReturnReason[]> GetAllReturnReasons(CancellationToken cancel = default)
+            {
+                return _client.GetAll<ReturnReason>(cancel, "/VenditPublicApi/Lookups/ReturnReasons/");
             }
         }
     }

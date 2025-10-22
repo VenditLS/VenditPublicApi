@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using VenditPublicSdk.Entities;
 using VenditPublicSdk.Find.Base;
 
 namespace VenditPublicSdk.Find
@@ -15,7 +16,7 @@ namespace VenditPublicSdk.Find
         public HistoryPurchaseOrderFilters(params HistoryPurchaseOrderFilter[] filters) : base(filters) { }
     }
 
-    public class HistoryPurchaseOrderResults : BaseResultsReply<int>
+    public class HistoryPurchaseOrderResults : BaseResultsReply<int, HistoryPurchaseHeader>
     {
     }
 

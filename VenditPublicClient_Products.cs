@@ -54,24 +54,6 @@ namespace VenditPublicSdk
                 return _client.GetMultiple<Product, int>(ids, cancel, "/VenditPublicApi/Products");
             }
 
-            // -- Stock
-
-            public Task<ProductStock[]> GetProductStock(int productId, int sizeColorId = 0, int officeId = 0, CancellationToken cancel = default)
-            {
-                return _client.GetMultiple<ProductStock>(cancel, $"/VenditPublicApi/ProductStock/{productId}/{sizeColorId}/{officeId}");
-            }
-
-            public Task<ProductSizeColorStock[]> GetChangedStockFromDate(DateTime from, CancellationToken cancel = default)
-            {
-                long unixMillisec = new DateTimeOffset(from).ToUnixTimeMilliseconds();
-                return _client.GetMultiple<ProductSizeColorStock>(cancel, $"/VenditPublicApi/ProductStock/GetChangedStockFromDate/{unixMillisec}");
-            }
-
-            public Task<ProductStockDetail[]> GetProductStockDetails(int productId, int sizeColorId = 0, int officeId = 0, CancellationToken cancel = default)
-            {
-                return _client.GetMultiple<ProductStockDetail>(cancel, $"/VenditPublicApi/ProductStock/Details/{productId}/{sizeColorId}/{officeId}");
-            }
-
             // --- Attributes
 
             /// <summary>
@@ -361,6 +343,49 @@ namespace VenditPublicSdk
 
                 return -1;
             }
+
+            // --- Images
+
+            /* Not yet supported on server side
+
+            /// <summary>
+            /// Get a list of images 
+            /// </summary>
+            /// <param name="productId">Product ID</param>
+            /// <param name="sizeColorId">Size-Color Id </param>
+            /// <param name="cancel">Cancellation token</param>
+            /// <returns>List of image info (most important the Image ID and sort order)</returns>
+            public async Task<ProductImageInfo[]> GetProductImageList(int productId, int sizeColorId = 0, CancellationToken cancel = default)
+            {
+                return await _client.GetMultiple<ProductImageInfo>(cancel, $"/VenditPublicApi/Products/GetProductImageList/{productId}/{sizeColorId}");
+            }
+
+            /// <summary>
+            /// Get product Image by the ImageId
+            /// </summary>
+            /// <param name="imageId">Image ID</param>
+            /// <param name="cancel">Cancellation token</param>
+            /// <returns>Image</returns>
+            public async Task<Stream> GetProductImage(int imageId, CancellationToken cancel = default)
+            {
+                HttpResponseMessage response= await _client.GetRaw(cancel, $"/VenditPublicApi/Products/GetProductImage/{imageId}");
+                    return await response.Content.ReadAsStreamAsync();
+            }
+
+            /// <summary>
+            /// Get the main image of a product (the image with the smallest sort order)
+            /// </summary>
+            /// <param name="productId">Product ID</param>
+            /// <param name="sizeColorId">Size-Color Id </param>
+            /// <param name="cancel">Cancellation token</param>
+            /// <returns>Image</returns>
+            public async Task<Stream> GetMainProductImage(int productId, int sizeColorId = 0, CancellationToken cancel = default)
+            {
+                HttpResponseMessage response = await _client.GetRaw(cancel, $"/VenditPublicApi/Products/GetMainProductImage/{productId}/{sizeColorId}");
+                return await response.Content.ReadAsStreamAsync();
+            }
+
+            */
         }
     }
 }

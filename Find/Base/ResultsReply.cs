@@ -18,7 +18,7 @@
     /// <summary>
     /// Contains a collection of primary keys and pagination information
     /// </summary>
-    public class BaseResultsReply<TPrimaryKey> : IResultsReply
+    public class BaseResultsReply<TPrimaryKey, TEntity> : IResultsReply
     {
         /// <summary>
         /// Primary keys (IDs of items)
@@ -37,5 +37,7 @@
         /// </summary>
         /// <example>3</example>
         public uint PaginationRowCount { get; set; }
+
+        public TEntity[] Entities { get;set;}
     }
 }
