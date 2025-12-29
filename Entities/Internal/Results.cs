@@ -19,6 +19,11 @@ namespace VenditPublicSdk.Entities.Internal
         {
         }
 
+        public Results(int capacity)
+        {
+            Items = new TEntity[capacity];
+        }
+
         public Results(params TEntity[] items)
         {
             Items= items;

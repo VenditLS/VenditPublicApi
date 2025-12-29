@@ -91,6 +91,51 @@ namespace VenditPublicSdk
             {
                 return _client.Put(cancel, $"/VenditPublicApi/Repairs/UpdateStatus/{repairId}/{newRepairStatusId}");
             }
+
+
+            // RepairKind
+
+            public Task<RepairKind> GetRepairKind(int kindId, CancellationToken cancel = default)
+            {
+                return _client.GetSomething<RepairKind>(kindId.ToString(), cancel, "/VenditPublicApi/Lookups/RepairKinds/");
+            }
+
+            public Task<RepairKind[]> GetRepairKinds(params int[] ids)
+            {
+                return GetRepairKinds(CancellationToken.None, ids);
+            }
+
+            public Task<RepairKind[]> GetRepairKinds(CancellationToken cancel, params int[] ids)
+            {
+                return _client.GetMultiple<RepairKind, int>(ids, cancel, "/VenditPublicApi/Lookups/RepairKinds/");
+            }
+
+            public Task<RepairKind[]> GetAllRepairKinds(CancellationToken cancel = default)
+            {
+                return _client.GetAll<RepairKind>(cancel, "/VenditPublicApi/Lookups/RepairKinds/");
+            }
+
+            // RepairCode
+
+            public Task<RepairCode> GetRepairCode(int codeId, CancellationToken cancel = default)
+            {
+                return _client.GetSomething<RepairCode>(codeId.ToString(), cancel, "/VenditPublicApi/Lookups/RepairCodes/");
+            }
+
+            public Task<RepairCode[]> GetRepairCodes(params int[] ids)
+            {
+                return GetRepairCodes(CancellationToken.None, ids);
+            }
+
+            public Task<RepairCode[]> GetRepairCodes(CancellationToken cancel, params int[] ids)
+            {
+                return _client.GetMultiple<RepairCode, int>(ids, cancel, "/VenditPublicApi/Lookups/RepairCodes/");
+            }
+
+            public Task<RepairCode[]> GetAllRepairCodes(CancellationToken cancel = default)
+            {
+                return _client.GetAll<RepairCode>(cancel, "/VenditPublicApi/Lookups/RepairCodes/");
+            }
         }
     }
 }

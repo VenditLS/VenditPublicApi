@@ -8,6 +8,10 @@ namespace VenditPublicSdk.Entities
         public string SizeName { get; set; }
         public string ColorName { get; set; }
         public string ColorCode { get; set; }
+
+        /// <summary>
+        /// Aggregated per office (not per StockLocation)
+        /// </summary>
         public decimal? Stock { get; set; }
         public decimal? AvailableStock { get; set; }
         public string LocationName { get; set; }
@@ -22,6 +26,36 @@ namespace VenditPublicSdk.Entities
         public int StorageLocationId { get; set; }
         public int OfficeId { get; set; }
         public int ProductId { get; set; }
+
+        /// <summary>
+        /// Aggregated per office (not per StockLocation)
+        /// </summary>
+        public decimal? PendingProductPurchase { get; set; }
+
+        /// <summary>
+        /// Aggregated per office (not per StockLocation)
+        /// </summary>
+        public decimal? OfficeTransferOrder { get; set; }
+
+        /// <summary>
+        /// Aggregated per office (not per StockLocation)
+        /// </summary>
+        public decimal? OfficeTransferOrderIn { get; set; }
+
+        /// <summary>
+        /// Aggregated per office (not per StockLocation)
+        /// </summary>
+        public decimal? Reserved { get; set; }
+
+        /// <summary>
+        /// Aggregated per office (not per StockLocation)
+        /// </summary>
+        public decimal? InfoTotalCustomerOrdered { get; set; }
+
+        /// <summary>
+        /// Aggregated per office (not per StockLocation)
+        /// </summary>
+        public decimal? InfoTotalPurchaseOrdered { get; set; }
 
         public override string ToString()
         {
