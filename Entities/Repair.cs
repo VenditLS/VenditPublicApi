@@ -89,6 +89,7 @@ namespace VenditPublicSdk.Entities
         public Results<RepairReplacement> RepairReplacement { get; set; }
         public Results<RepairDownpayment> DownPayments { get; set; }
         public Results<RepairCustomerAccessoire> RepairCustomerAccessoires { get; set; }
+        public Results<RepairTask> Tasks { get; set; }
         public string LeaseLicensePlateNumber { get; set; }
         public string LeaseVinNumber { get; set; }
         public Guid? LeaseInvoiceId { get; set; }
@@ -96,6 +97,8 @@ namespace VenditPublicSdk.Entities
         public string UsedLayoutLocaleId { get; set; }
         public string ShNumber { get; set; }
         public DateTime? Returndatetime { get; set; }
+
+        public Results<Insurance> Insurance { get; set; }
 
         public override string ToString()
         {

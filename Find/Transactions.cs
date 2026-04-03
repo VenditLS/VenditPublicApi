@@ -1,5 +1,7 @@
 ﻿using System.ComponentModel;
+using System.Reflection.Emit;
 using VenditPublicSdk.Entities;
+using VenditPublicSdk.Entities.Lookups;
 using VenditPublicSdk.Find.Base;
 
 namespace VenditPublicSdk.Find
@@ -308,5 +310,213 @@ namespace VenditPublicSdk.Find
         /// </summary>
         [Description("Type = String")]
         Zipcode = 122,
+
+        /// <summary>
+        /// Type = System.Int32
+        /// </summary>
+        [Description("Type = Int32")]
+        SaleDetailId = 1025,
+
+        /// <summary>
+        /// Type = System.Int32
+        /// </summary>
+        [Description("Type = Int32")]
+        EmployeeId = 155,
+
+        /// <summary>
+        /// Type = System.String
+        /// </summary>
+        [Description("Type = String")]
+        EmployeeName = 152,
+
+        /// <summary>
+        /// Type = System.Int32
+        /// </summary>
+        [Description("Type = Int32")]
+        CustomerId = 409,
+
+        /// <summary>
+        /// Type = System.Int32
+        /// </summary>
+        [Description("Type = Int32")]
+        ContactId = 410,
+
+        /// <summary>
+        /// Type = System.String
+        /// </summary>
+        [Description("Type = String")]
+        Barcode = 201,
+
+        /// <summary>
+        /// Type = System.Int32
+        /// </summary>
+        [Description("Type = Int32")]
+        BarcodeId = 560,
+
+        /// <summary>
+        /// Type = System.Int32
+        /// </summary>
+        [Description("Type = Int32")]
+        AddressId = 1028,
+
+        /// <summary>
+        /// Type = System.Int32
+        /// </summary>
+        [Description("Type = Int32")]
+        AddressTypeId = 910,
+
+        /// <summary>
+        /// Type = System.Int32
+        /// </summary>
+        [Description("Type = Int32")]
+        CountryId = 411,
+
+        /// <summary>
+        /// Type = System.Boolean
+        /// </summary>
+        [Description("Type = Boolean")]
+        UnpaidAccountActive = 807,
+
+        /// <summary>
+        /// Type = System.Decimal
+        /// </summary>
+        [Description("Type = Decimal")]
+        UnpaidAccountDueAmount = 808,
+
+        /// <summary>
+        /// Type = System.Int32
+        /// </summary>
+        [Description("Type = Int32")]
+        UnpaidAccountId = 809,
+
+        /// <summary>
+        /// Type = System.DateTime
+        /// </summary>
+        [Description("Type = DateTime")]
+        UnpaidAccountLastPaymentDate = 810,
+
+        /// <summary>
+        /// Type = System.DateTime
+        /// </summary>
+        [Description("Type = DateTime")]
+        UnpaidAccountLastReminderDate = 811,
+
+        /// <summary>
+        /// Type = System.Int16
+        /// </summary>
+        [Description("Type = Int16")]
+        UnpaidAccountReminderCount = 812,
+
+        /// <summary>
+        /// Type = System.Int32
+        /// </summary>
+        [Description("Type = Int32")]
+        UnpaidAccountTypeId = 813,
+
+        /// <summary>
+        /// Type = System.Int32
+        /// </summary>
+        [Description("Type = Int32")]
+        ProductGroupId = 1034,
+
+        /// <summary>
+        /// Type = System.String
+        /// </summary>
+        [Description("Type = String")]
+        EmployeeCode = 814,
+
+        /// <summary>
+        /// Type = System.Int32
+        /// </summary>
+        [Description("Type = Int32")]
+        InsuranceId = 815,
+
+        /// <summary>
+        /// Type = System.String
+        /// </summary>
+        [Description("Type = String")]
+        InsuranceAnwbLidnummer = 816,
+
+        /// <summary>
+        /// Type = System.Int32
+        /// </summary>
+        [Description("Type = Int32")]
+        InsuranceBatchNumber = 817,
+
+        /// <summary>
+        /// Type = System.String
+        /// </summary>
+        [Description("Type = String")]
+        InsuranceCoverCode = 818,
+
+        /// <summary>
+        /// Type = System.String
+        /// </summary>
+        [Description("Type = String")]
+        InsuranceCoverType = 819,
+
+        /// <summary>
+        /// Type = System.String
+        /// </summary>
+        [Description("Type = String")]
+        InsuranceDriverFirstName = 820,
+
+        /// <summary>
+        /// Type = System.String
+        /// </summary>
+        [Description("Type = String")]
+        InsuranceDriverLastName = 821,
+
+        /// <summary>
+        /// Type = System.String
+        /// </summary>
+        [Description("Type = String")]
+        InsuranceGroupCode = 822,
+
+        /// <summary>
+        /// Type = System.String
+        /// </summary>
+        [Description("Type = String")]
+        InsuranceLockCode = 823,
+
+        /// <summary>
+        /// Type = System.String
+        /// </summary>
+        [Description("Type = String")]
+        InsurancePolisNumber = 824,
+
+        /// <summary>
+        /// Type = System.String
+        /// </summary>
+        [Description("Type = String")]
+        InsurancePremiumOptionCode = 825,
+
+        /// <summary>
+        /// Type = System.String
+        /// </summary>
+        [Description("Type = String")]
+        InsuranceReferenceNumber = 826,
+
+        /// <summary>
+        /// Type = System.String
+        /// </summary>
+        [Description("Type = String")]
+        InsuranceReferenceNumberOptional1 = 827,
+
+        /// <summary>
+        /// Type = System.String
+        /// </summary>
+        [Description("Type = String")]
+        InsuranceReferenceNumberOptional2 = 828,
+
+        /// <summary>
+        /// Type = System.String
+        /// </summary>
+        [Description("Type = String")]
+        InsuranceTrackTraceBarcode = 829,
+
     }
 }
+
+
+

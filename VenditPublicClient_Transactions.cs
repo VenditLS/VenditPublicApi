@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using VenditPublicSdk.Base;
 using VenditPublicSdk.Entities;
+using VenditPublicSdk.Entities.GetWithDetails;
 using VenditPublicSdk.Entities.Lookups;
 using VenditPublicSdk.Find;
 
@@ -53,6 +54,11 @@ namespace VenditPublicSdk
             public Task<Transaction> GetTransactionWithDetails(int id, CancellationToken cancel = default)
             {
                 return _client.GetSomething<Transaction>(id.ToString(), cancel, "/VenditPublicApi/Transactions/GetWithDetails");
+            }
+
+            public Task<Transaction> GetTransactionWithDetails(int id, IncludeTransactionDetails details, CancellationToken cancel = default)
+            {
+                return _client.GetSomething<Transaction>(cancel, $"/VenditPublicApi/Transactions/GetWithDetails/{id}/{(int)details}");
             }
 
             // ReturnReason

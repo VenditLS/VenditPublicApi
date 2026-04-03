@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using VenditPublicSdk.Base;
 using VenditPublicSdk.Entities;
+using VenditPublicSdk.Entities.GetWithDetails;
 using VenditPublicSdk.Find;
 
 namespace VenditPublicSdk
@@ -53,6 +54,11 @@ namespace VenditPublicSdk
             public Task<int[]> GetRepairIdsForCustomer(int customerId, CancellationToken cancel = default)
             {
                 return _client.GetSomething<int[]>(customerId.ToString(), cancel, "/VenditPublicApi/Repairs/GetForCustomer");
+            }
+
+            public Task<Repair> GetRepairWithDetails(int id, IncludeRepairDetails details, CancellationToken cancel = default)
+            {
+                return _client.GetSomething<Repair>(cancel, $"/VenditPublicApi/Repairs/GetWithDetails/{id}/{(int)details}");
             }
 
             public Task<Repair> GetRepairWithDetails(int id, CancellationToken cancel = default)

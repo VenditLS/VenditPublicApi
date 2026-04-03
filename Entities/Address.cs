@@ -1,4 +1,5 @@
 ﻿using System;
+using VenditPublicSdk.Entities.Internal;
 
 namespace VenditPublicSdk.Entities
 {
@@ -17,6 +18,10 @@ namespace VenditPublicSdk.Entities
         public string houseNumberSuffix { get; set; }
         public string companyName       { get; set; }
         public string glnNumber         { get; set; }
+
+        public Results<Phone> Phones { get; set; }
+
+        public Results<Contact> Contacts { get; set; }
 
         public override string ToString()
         {

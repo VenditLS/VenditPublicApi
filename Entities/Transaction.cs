@@ -52,6 +52,7 @@ namespace VenditPublicSdk.Entities
         public long? IntersolveLiabRefpos { get; set; }
         public string IntersolveLiabCardnumber { get; set; }
         public string PurchaseOrderNumber { get; set; }
+        public UnpaidAccount UnpaidAccount { get; set; }
 
         public override string ToString()
         {

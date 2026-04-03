@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Xml.Serialization;
+using VenditPublicSdk.Entities.Internal;
 
 namespace VenditPublicSdk.Entities
 {
@@ -99,6 +101,39 @@ namespace VenditPublicSdk.Entities
         public string OriginalSearchPhrase { get; set; }
         public bool OriginalSearchSingleProductResult { get; set; }
 
+
+        public decimal? FiscalValue { get; set; }
+
+        public int? LeaseProviderId { get; set; }
+
+        public string CombinationDiscountText { get; set; }
+
+        public string KeyNumber2 { get; set; }
+
+        public string BikeImeiNumber { get; set; }
+
+        public string VinNumber { get; set; }
+
+        public string VelopassNumber { get; set; }
+
+        public string CertificateNumber { get; set; }
+
+        public bool? IsConsignment { get; set; }
+
+        public string LocalizationTemplate { get; set; }
+
+        public string GpsBrand { get; set; }
+
+        public string GpsNumber { get; set; }
+
+        public bool IsOldGold { get; set; }
+
+        public string DriverName { get; set; }
+
+
+
+        public Results<Insurance> Insurance { get; set; }
+
         public override string ToString()
         {
             return $"{ProductQuantity} x [{ProductNumber}] {ProductDescription}";
@@ -108,17 +143,17 @@ namespace VenditPublicSdk.Entities
     [Serializable]
     public enum TradeInEnum
     {
-        None     = 0,
+        None = 0,
         Purchase = 1,
-        Sale     = 2
+        Sale = 2
     }
 
     [Serializable]
     public enum TradeInVatTypeEnum
     {
-        None    = -1,
-        Nul     = 0,
-        LowVat  = 1,
+        None = -1,
+        Nul = 0,
+        LowVat = 1,
         HighVat = 2
     }
 
@@ -126,10 +161,10 @@ namespace VenditPublicSdk.Entities
     [Flags]
     public enum LockFields : uint
     {
-        None                 = 0,
-        All                  = uint.MaxValue,
-        IsScannedFreeProduct = 1, 
-        DiscountPrice      = 4,
+        None = 0,
+        All = uint.MaxValue,
+        IsScannedFreeProduct = 1,
+        DiscountPrice = 4,
         DiscountPercentage = 8,
         ProductPrice = 16,
         CustomerFixedPrice = 32,

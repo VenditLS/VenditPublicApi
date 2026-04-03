@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using VenditPublicSdk.Base;
 using VenditPublicSdk.Entities;
+using VenditPublicSdk.Entities.GetWithDetails;
 using VenditPublicSdk.Entities.Import;
 using VenditPublicSdk.Entities.Internal;
 using VenditPublicSdk.Entities.Lookups;
@@ -32,9 +33,9 @@ namespace VenditPublicSdk
                 return _client.FindSomething<CustomerResults, CustomerFilters>(new CustomerFilters(new CustomerFilter(field, value, filterComparison)), cancel, "/VenditPublicApi/Customers/Find");
             }
 
-            public Task<Customer> GetCustomer(int id, CancellationToken cancel = default)
+            public Task<Customer> GetCustomer(int id, CancellationToken cancel = default, IncludeCustomerDetails details = IncludeCustomerDetails.None)
             {
-                return _client.GetSomething<Customer>(id.ToString(), cancel, "/VenditPublicApi/Customers/");
+                return _client.GetSomething<Customer>($"{id}/{(int)details}", cancel, "/VenditPublicApi/Customers/");
             }
 
             public Task<Customer[]> GetCustomers(params int[] ids)

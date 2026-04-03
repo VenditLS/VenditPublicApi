@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Xml.Serialization;
+using VenditPublicSdk.Entities.Internal;
+using VenditPublicSdk.Entities.Lookups;
 
 namespace VenditPublicSdk.Entities
 {
@@ -75,6 +77,10 @@ namespace VenditPublicSdk.Entities
             get { return (EdifactTypeEnum?)EdifactTypeEnum; }
             set { EdifactTypeEnum = (int?)value; }
         }
+
+        public Results<CustomerGroup> CustomerGroups { get; set; }
+
+        public Results<Address> Addresses { get; set; }
 
         public override string ToString()
         {

@@ -26,10 +26,29 @@ namespace VenditPublicSdk
                 return _client.GetMultiple<ProductStock>(cancel, $"/VenditPublicApi/ProductStock/{productId}/{sizeColorId}/{officeId}");
             }
 
-            public Task<ProductSizeColorStock[]> GetChangedStockFromDate(DateTime from, CancellationToken cancel = default)
+
+            /// <summary>
+            /// Get Product Stock, changed at and after a specified date
+            /// </summary>
+            /// <remarks>
+            /// The following fields are the totals per Office (not per StockLocation):
+            /// <pre>
+            ///  - availableStock
+            ///  - pendingProductPurchase
+            ///  - officeTransferOrder
+            ///  - officeTransferOrderIn
+            ///  - reserved
+            ///  - infoTotalCustomerOrdered
+            ///  - infoTotalPurchaseOrdered
+            /// </pre>
+            /// </remarks>
+            /// <param name="from">DateTime from wich point onward changes should be fetched</param>
+            /// <param name="cancel">optional cancellation token</param>
+            /// <param name="officeId">Default 0 for all offices, specify an office ID to filter by office.</param>
+            public Task<ProductSizeColorStock[]> GetChangedStockFromDate(DateTime from, CancellationToken cancel = default, int officeId=0)
             {
                 long unixMillisec = new DateTimeOffset(from).ToUnixTimeMilliseconds();
-                return _client.GetMultiple<ProductSizeColorStock>(cancel, $"/VenditPublicApi/ProductStock/GetChangedStockFromDate/{unixMillisec}");
+                return _client.GetMultiple<ProductSizeColorStock>(cancel, $"/VenditPublicApi/ProductStock/GetChangedStockFromDate/{unixMillisec}?officeId={officeId}");
             }
 
             public Task<ProductStockDetail[]> GetProductStockDetails(int productId, int sizeColorId = 0, int officeId = 0, CancellationToken cancel = default)
