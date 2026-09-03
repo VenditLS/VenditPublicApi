@@ -1,7 +1,10 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using VenditPublicSdk.Base;
 using VenditPublicSdk.Entities;
+using VenditPublicSdk.Entities.GetWithDetails;
+using VenditPublicSdk.Entities.Import;
 using VenditPublicSdk.Entities.Lookups;
 using VenditPublicSdk.Find;
 
@@ -14,6 +17,7 @@ namespace VenditPublicSdk
         public class OrdersSection
         {
             private VenditPublicClient _client;
+
             internal OrdersSection(VenditPublicClient client)
             {
                 _client = client;
@@ -44,6 +48,11 @@ namespace VenditPublicSdk
                 return _client.GetMultiple<Order, long>(ids, cancel, "/VenditPublicApi/Orders");
             }
 
+            public Task<Order[]> GetOrders(IncludeOrderDetails details, CancellationToken cancel, params long[] ids)
+            {
+                return _client.GetMultiple<Order, long>(ids, cancel, "/VenditPublicApi/Orders", $"?detailFlags={(long)details}");
+            }
+
             public Task<long[]> GetOrderIdsForCustomer(int customerId, CancellationToken cancel = default)
             {
                 return _client.GetSomething<long[]>(customerId.ToString(), cancel, "/VenditPublicApi/Orders/GetForCustomer");
@@ -52,6 +61,11 @@ namespace VenditPublicSdk
             public Task<Order> GetOrderWithDetails(long id, CancellationToken cancel = default)
             {
                 return _client.GetSomething<Order>(id.ToString(), cancel, "/VenditPublicApi/Orders/GetWithDetails");
+            }
+
+            public Task<Order> GetOrderWithDetails(long id, IncludeOrderDetails details, CancellationToken cancel = default)
+            {
+                return _client.GetSomething<Order>(cancel, $"/VenditPublicApi/Orders/GetWithDetails/{id}/{(int)details}");
             }
 
             public Task<long[]> GetAllOrderIds(CancellationToken cancel = default)
@@ -86,6 +100,11 @@ namespace VenditPublicSdk
                 return _client.Put(cancel, $"/VenditPublicApi/Orders/UpdateStatus/{orderId}/{newOrderStatusId}");
             }
 
+            public Task<PaymentLink> GetPaymentLink(int id, CancellationToken cancel = default)
+            {
+                return _client.GetSomething<PaymentLink>(cancel, $"/VenditPublicApi/Orders/GetPaymentUrl/{id}");
+            }
+
 
             // OrderType
 
@@ -107,6 +126,18 @@ namespace VenditPublicSdk
             public Task<OrderType[]> GetAllOrderTypes(CancellationToken cancel = default)
             {
                 return _client.GetAll<OrderType>(cancel, "/VenditPublicApi/Lookups/OrderTypes/");
+            }
+
+            // Import
+
+            public Task<EcommerceSettings[]> GetEcommerceSettings()
+            {
+                return _client.GetSomething<EcommerceSettings[]>(CancellationToken.None, "/VenditPublicApi/Orders/GetEcommerceSettings");
+            }
+
+            public Task<OrderImportResult> ImportOrder(OrderImport item, Guid ecommerceSettingsId, CancellationToken cancel = default)
+            {
+                return _client.PostObj<OrderImportResult>(cancel, $"/VenditPublicApi/Orders/ImportOrder/{ecommerceSettingsId}", item);
             }
         }
     }

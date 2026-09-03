@@ -147,7 +147,7 @@ namespace VenditPublicSdk.Base
                             client.DefaultRequestHeaders.Remove("Token");
 
                             client.DefaultRequestHeaders.Add("ApiKey", _settings.ApiKey);
-                            client.DefaultRequestHeaders.Add("Token",  _settings.Token);
+                            client.DefaultRequestHeaders.Add("Token", _settings.Token);
 
                             _client = client;
 
@@ -258,38 +258,42 @@ namespace VenditPublicSdk.Base
         }
 
         /// <summary>
-        /// Will check if the token is currently valid by calling Utils/CheckApiKeyAndToken and if not will do one attempt to recover and recheck
+        /// Will check if the token is currently valid by calling Utils/CheckApiKeyAndToken and if not will do up to 4 attempts to recover and recheck
         /// </summary>
         public async Task<bool> ValidateApiKeyAndToken(CancellationToken cancel = default)
         {
             bool ok = await CheckApiKeyAndToken(cancel).ConfigureAwait(false);
-            if (!ok)
-            {
-                try
-                {
-                    await _applyChangesLock.WaitAsync(cancel).ConfigureAwait(false);
-                    _settings.Token = null;
-                    await CheckToken(cancel).ConfigureAwait(false);
+            if (ok)
+                return true;
 
-                    bool shouldPersist = await CheckToken(cancel).ConfigureAwait(false);
+            bool shouldPersist = false;
+            try
+            {
+                await _applyChangesLock.WaitAsync(cancel).ConfigureAwait(false);
+                int retry = 3;
+                while (!ok && retry > 0)
+                {
+                    _settings.Token = null;
+                    shouldPersist = await CheckToken(cancel).ConfigureAwait(false);
 
                     _client.DefaultRequestHeaders.Remove("Token");
-                    _client.DefaultRequestHeaders.Add("Token",  _settings.Token);
+                    _client.DefaultRequestHeaders.Add("Token", _settings.Token);
 
-                    if (shouldPersist && PersistSettings != null) // persist outside the lock so threads can continue
-                        await PersistSettings(_settings, cancel).ConfigureAwait(false);
-
+                    ok = await CheckApiKeyAndToken(cancel).ConfigureAwait(false);
+                    retry--;
                 }
-                finally
-                {
-                    _applyChangesLock.Release();
-                }
-                ok = await CheckApiKeyAndToken(cancel).ConfigureAwait(false);
             }
+            finally
+            {
+                _applyChangesLock.Release();
+            }
+
+            if (shouldPersist && PersistSettings != null) // persist outside the lock so threads can continue
+                await PersistSettings(_settings, cancel).ConfigureAwait(false);
 
             return ok;
         }
-        
+
         public class TokenResponse
         {
             public string Token { get; set; }
@@ -350,7 +354,7 @@ namespace VenditPublicSdk.Base
         protected async Task<HttpResponseMessage> GetRaw(CancellationToken cancel, string url)
         {
             ConfiguredTaskAwaitable<HttpClient> clientTask = GetClient(cancel).ConfigureAwait(false);
-            
+
             Logger?.LogTrace(string.Concat("Calling ", url));
 
             HttpClient client = await clientTask;
@@ -385,11 +389,11 @@ namespace VenditPublicSdk.Base
             return results;
         }
 
-        protected async Task<TResults[]> GetMultiple<TResults, TPrimaryKey>(TPrimaryKey[] ids, CancellationToken cancel, string url)
+        protected async Task<TResults[]> GetMultiple<TResults, TPrimaryKey>(TPrimaryKey[] ids, CancellationToken cancel, string url, string query = null)
         {
             ConfiguredTaskAwaitable<HttpClient> clientTask = GetClient(cancel).ConfigureAwait(false);
 
-            url = $"{url.TrimEnd('/', '\\')}/GetMultiple";
+            url = $"{url.TrimEnd('/', '\\')}/GetMultiple{query}";
 
             Ids<TPrimaryKey> bdy = new Ids<TPrimaryKey>(ids);
 
@@ -523,8 +527,8 @@ namespace VenditPublicSdk.Base
 
             HttpClient client = await clientTask;
 
-            string        payload = JsonConvert.SerializeObject(bdy);
-            StringContent body    = new StringContent(payload, Encoding.UTF8, "application/json");
+            string payload = JsonConvert.SerializeObject(bdy);
+            StringContent body = new StringContent(payload, Encoding.UTF8, "application/json");
 
             HttpResponseMessage response = await client.PostAsync(url, body, cancel).ConfigureAwait(false);
 
@@ -545,7 +549,7 @@ namespace VenditPublicSdk.Base
 
             HttpClient client = await clientTask;
 
-            string payload = JsonConvert.SerializeObject(bdy, new JsonSerializerSettings(){DefaultValueHandling = DefaultValueHandling.Ignore, NullValueHandling = NullValueHandling.Ignore});
+            string payload = JsonConvert.SerializeObject(bdy, new JsonSerializerSettings() { DefaultValueHandling = DefaultValueHandling.Include, NullValueHandling = NullValueHandling.Include });
             StringContent body = new StringContent(payload, Encoding.UTF8, "application/json");
 
             HttpResponseMessage response = await client.PutAsync(url, body, cancel).ConfigureAwait(false);

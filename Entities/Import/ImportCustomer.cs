@@ -6,9 +6,9 @@ namespace VenditPublicSdk.Entities.Import
     [Serializable]
     public class ImportCustomer : Customer
     {
-        public Results<ImportAddress> Addresses { get; set; }
+        public new Results<ImportAddress> Addresses { get; set; }
 
-        public Results<ImportCustomerGroup> CustomerGroups { get; set; }
+        public new Results<ImportCustomerGroup> CustomerGroups { get; set; }
 
         /// <summary>
         /// Special care for fields that impact customers, including:

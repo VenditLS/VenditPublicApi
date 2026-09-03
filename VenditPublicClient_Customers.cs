@@ -48,11 +48,22 @@ namespace VenditPublicSdk
                 return _client.GetMultiple<Customer, int>(ids, cancel, "/VenditPublicApi/Customers");
             }
 
+            public Task<Customer[]> GetCustomers(IncludeCustomerDetails details, CancellationToken cancel, params int[] ids)
+            {
+                return _client.GetMultiple<Customer, int>(ids, cancel, "/VenditPublicApi/Customers", $"?detailFlags={(long)details}");
+            }
+
+            public Task<Customer> GetCustomerWithDetails(int id, IncludeCustomerDetails details, CancellationToken cancel = default)
+            {
+                return _client.GetSomething<Customer>(cancel, $"/VenditPublicApi/Customers/GetWithDetails/{id}/{(int)details}");
+            }
+
+
             public Task<Address[]> GetCustomerAddresses(int customerId, CancellationToken cancel = default)
             {
                 return _client.GetMultiple<Address>(cancel, $"/VenditPublicApi/Customers/GetAddresses/{customerId}");
             }
-
+            
             // Address has GetContacts
 
             //public Task<Contact[]> GetCustomerContacts(int customerId, CancellationToken cancel = default)

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Xml.Serialization;
 using VenditPublicSdk.Entities.Internal;
+using VenditPublicSdk.Entities.Lookups;
 
 namespace VenditPublicSdk.Entities
 {
@@ -56,7 +58,40 @@ namespace VenditPublicSdk.Entities
         public bool? IntersolveLiabViaZipcode { get; set; }
         public string OrderOrigin { get; set; }
         public OrderPickListStatusEnum PickStatusEnum { get; set; }
+
+        #region lookups
+
         public Results<OrderDownpayment> DownPayments { get; set; }
+
+        public OrderStatus OrderStatus { get; set; }
+
+        public Customer Customer { get; set; }
+
+        public Office Office { get; set; }
+
+        public Employee Employee { get; set; }
+
+        public OrderType OrderType { get; set; }
+
+        public OrderPriority OrderPriority { get; set; }
+
+        public Address InvoiceAddress { get; set; }
+
+        public Contact InvoiceContact { get; set; }
+
+        public Address DeliveryAddress { get; set; }
+
+        public Contact DeliveryContact { get; set; }
+
+        public Journal Journal { get; set; }
+
+        public Employee TurnoverEmployee { get; set; }
+
+        public Customer InvoiceDebitCustomer { get; set; }
+        
+        public Employee StatusEmployee { get; set; }
+
+        #endregion
 
         public override string ToString()
         {
@@ -172,6 +207,20 @@ namespace VenditPublicSdk.Entities
         public string Barcode { get; set; }
         public string StorageName { get; set; }
         public string OrderNumber { get; set; }
+
+        #region lookups
+
+        public ProductSizeColor ProductSizeColor { get; set; }
+
+        public Brand Brand { get; set; }
+
+        public Vat Vat { get; set; }
+
+        public Office StockOffice  { get; set; }
+
+        public ExtraProductCosts ExtraProductCosts { get; set; }
+
+        #endregion
 
         public override string ToString()
         {

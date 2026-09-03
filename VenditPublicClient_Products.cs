@@ -1,8 +1,8 @@
-﻿using System;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using VenditPublicSdk.Base;
 using VenditPublicSdk.Entities;
+using VenditPublicSdk.Entities.GetWithDetails;
 using VenditPublicSdk.Entities.Import;
 using VenditPublicSdk.Entities.Internal;
 using VenditPublicSdk.Entities.Lookups;
@@ -54,6 +54,16 @@ namespace VenditPublicSdk
                 return _client.GetMultiple<Product, int>(ids, cancel, "/VenditPublicApi/Products");
             }
 
+            public Task<Product[]> GetProducts(IncludeProductDetails details, CancellationToken cancel, params int[] ids)
+            {
+                return _client.GetMultiple<Product, int>(ids, cancel, "/VenditPublicApi/Products", $"?detailFlags={(long)details}");
+            }
+
+            public Task<Product> GetProductWithDetails(int id, IncludeProductDetails details, CancellationToken cancel = default)
+            {
+                return _client.GetSomething<Product>(cancel, $"/VenditPublicApi/Products/GetWithDetails/{id}/{(int)details}");
+            }
+
             // --- Attributes
 
             /// <summary>
@@ -92,6 +102,11 @@ namespace VenditPublicSdk
             public Task<ProductGroup[]> GetProductGroups(CancellationToken cancel, params int[] ids)
             {
                 return _client.GetMultiple<ProductGroup, int>(ids, cancel, "/VenditPublicApi/ProductGroups");
+            }
+
+            public Task<ProductGroup[]> GetAllProductGroups(CancellationToken cancel = default)
+            {
+                return _client.GetAll<ProductGroup>(cancel, "/VenditPublicApi/ProductGroups");
             }
 
             // --- ProductSizeColors
@@ -229,6 +244,47 @@ namespace VenditPublicSdk
             public Task<ProductActionPrice> GetBestActiveDiscountForProduct(int productId, int sizeColorId, CancellationToken cancel = default)
             {
                 return _client.GetSomething<ProductActionPrice>(cancel, $"/VenditPublicApi/Lookups/ProductActionPrices/GetBestActiveDiscountForProduct/{productId}/{sizeColorId}");
+            }
+
+            // --- Barcodes
+
+            /// <summary>
+            /// Get a single barcode by its ID
+            /// </summary>
+            /// <param name="barcodeId">Barcode ID (PRODUCT_BARCODE_ID)</param>
+            /// <param name="cancel">Cancellation token</param>
+            /// <returns>The barcode</returns>
+            public Task<ProductBarcode> GetProductBarcode(int barcodeId, CancellationToken cancel = default)
+            {
+                return _client.GetSomething<ProductBarcode>(barcodeId.ToString(), cancel, "/VenditPublicApi/Lookups/Barcodes/");
+            }
+
+            /// <inheritdoc cref="GetProductBarcodes(CancellationToken, int[])"/>
+            public Task<ProductBarcode[]> GetProductBarcodes(params int[] ids)
+            {
+                return GetProductBarcodes(CancellationToken.None, ids);
+            }
+
+            /// <summary>
+            /// Get multiple barcodes by their IDs
+            /// </summary>
+            /// <param name="cancel">Cancellation token</param>
+            /// <param name="ids">Barcode IDs (PRODUCT_BARCODE_ID)</param>
+            /// <returns>Collection of barcodes</returns>
+            public Task<ProductBarcode[]> GetProductBarcodes(CancellationToken cancel, params int[] ids)
+            {
+                return _client.GetMultiple<ProductBarcode, int>(ids, cancel, "/VenditPublicApi/Lookups/Barcodes/");
+            }
+
+            /// <summary>
+            /// Get every barcode known to the system.
+            /// <para>Note that this is the complete barcode table, which can be very large; prefer <see cref="GetBarcodes(int, int, CancellationToken)"/> when you only need the barcodes of one product.</para>
+            /// </summary>
+            /// <param name="cancel">Cancellation token</param>
+            /// <returns>Collection of barcodes</returns>
+            public Task<ProductBarcode[]> GetAllProductBarcodes(CancellationToken cancel = default)
+            {
+                return _client.GetAll<ProductBarcode>(cancel, "/VenditPublicApi/Lookups/Barcodes/");
             }
 
             // --- Product Kind

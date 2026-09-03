@@ -1,5 +1,6 @@
 ﻿using System;
 using VenditPublicSdk.Entities.Internal;
+using VenditPublicSdk.Entities.Lookups;
 
 namespace VenditPublicSdk.Entities
 {
@@ -78,6 +79,18 @@ namespace VenditPublicSdk.Entities
         public bool WebshopEnabled { get; set; }
         public bool WebshopOrderable { get; set; }
 
+        public Brand Brand { get; set; }
+        public ProductGroup Group { get; set; }
+        public AvailabilityStatus AvailabilityStatus { get; set; }
+        public SalesVisibility SalesVisibility { get; set; }
+        public Results<ProductSupplier> Suppliers { get; set; }
+        public Results<ProductSalesPrice> SalesPrices { get; set; }
+        public Results<ProductVat> ProductVats { get; set; }
+        public Results<ProductStock> AvailableStock { get; set; }
+        public Branche Branche { get; set; }
+        public ProductKind ProductKind { get; set; }
+
+
         public override string ToString()
         {
             return $"[{ProductNumber}] {ProductDescription}";
@@ -87,8 +100,6 @@ namespace VenditPublicSdk.Entities
     [Serializable]
     public class Product : BaseProduct
     {
-        public Results<ProductSupplier> Suppliers { get; set; }
-        public Results<ProductSalesPrice> SalesPrices { get; set; }
-        public Results<ProductVat> ProductVats { get; set; }
+        public Results<ProductBarcode> Barcodes { get; set; }
     }
 }

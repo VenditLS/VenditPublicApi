@@ -46,6 +46,11 @@ namespace VenditPublicSdk
                 return _client.GetMultiple<Transaction, int>(ids, cancel, "/VenditPublicApi/Transactions");
             }
 
+            public Task<Transaction[]> GetTransactions(IncludeTransactionDetails details, CancellationToken cancel, params int[] ids)
+            {
+                return _client.GetMultiple<Transaction, int>(ids, cancel, "/VenditPublicApi/Transactions", $"?detailFlags={(long)details}");
+            }
+
             public Task<long[]> GetTransactionIdsForCustomer(int customerId, CancellationToken cancel = default)
             {
                 return _client.GetSomething<long[]>(customerId.ToString(), cancel, "/VenditPublicApi/Transactions/GetForCustomer");
@@ -59,6 +64,11 @@ namespace VenditPublicSdk
             public Task<Transaction> GetTransactionWithDetails(int id, IncludeTransactionDetails details, CancellationToken cancel = default)
             {
                 return _client.GetSomething<Transaction>(cancel, $"/VenditPublicApi/Transactions/GetWithDetails/{id}/{(int)details}");
+            }
+
+            public Task<PaymentLink> GetPaymentLink(int id, CancellationToken cancel = default)
+            {
+                return _client.GetSomething<PaymentLink>(cancel, $"/VenditPublicApi/Transactions/GetPaymentUrl/{id}");
             }
 
             // ReturnReason

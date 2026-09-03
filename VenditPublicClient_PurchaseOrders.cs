@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using VenditPublicSdk.Base;
 using VenditPublicSdk.Entities;
+using VenditPublicSdk.Entities.GetWithDetails;
 using VenditPublicSdk.Entities.Import;
 using VenditPublicSdk.Entities.Internal;
 using VenditPublicSdk.Find;
@@ -45,7 +46,7 @@ namespace VenditPublicSdk
             {
                 return _client.GetMultiple<ProductPurchaseOrder, long>(ids, cancel, "/VenditPublicApi/PurchaseOrders");
             }
-
+            
             public Task<ProductPurchaseOrder> GetPurchaseOrderWithDetails(long id, CancellationToken cancel = default)
             {
                 return _client.GetSomething<ProductPurchaseOrder>(id.ToString(), cancel, "/VenditPublicApi/PurchaseOrders/GetWithDetails");

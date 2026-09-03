@@ -6,6 +6,6 @@ namespace VenditPublicSdk.Entities.Import
     [Serializable]
     public class ImportAddress:Address
     {
-        public Results<ImportContact> Contacts { get; set; }
+        public new Results<ImportContact> Contacts { get; set; }
     }
 }

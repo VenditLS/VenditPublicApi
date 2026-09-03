@@ -51,6 +51,11 @@ namespace VenditPublicSdk
                 return _client.GetMultiple<Repair, int>(ids, cancel, "/VenditPublicApi/Repairs");
             }
 
+            public Task<Repair[]> GetRepairs(IncludeRepairDetails details, CancellationToken cancel, params int[] ids)
+            {
+                return _client.GetMultiple<Repair, int>(ids, cancel, "/VenditPublicApi/Repairs", $"?detailFlags={(long)details}");
+            }
+
             public Task<int[]> GetRepairIdsForCustomer(int customerId, CancellationToken cancel = default)
             {
                 return _client.GetSomething<int[]>(customerId.ToString(), cancel, "/VenditPublicApi/Repairs/GetForCustomer");
@@ -70,6 +75,12 @@ namespace VenditPublicSdk
             {
                 return _client.GetSomething<int[]>(cancel, $"/VenditPublicApi/Repairs/GetAllIds");
             }
+
+            public Task<PaymentLink> GetPaymentLink(int id, CancellationToken cancel = default)
+            {
+                return _client.GetSomething<PaymentLink>(cancel, $"/VenditPublicApi/Repairs/GetPaymentUrl/{id}");
+            }
+
 
             // RepairStatus
 
