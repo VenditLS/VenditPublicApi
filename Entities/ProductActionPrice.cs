@@ -28,6 +28,24 @@ namespace VenditPublicSdk.Entities
         public string ModifiedBy { get; set; }
         public DateTime? BatchDate { get; set; }
 
+        /// <summary>
+        /// Only populated when <see cref="GetWithDetails.IncludeProductActionPriceDetails.Product"/> was requested.
+        /// <para>Empty when this Action price is defined for a product group instead of a single product.</para>
+        /// </summary>
+        public Product Product { get; set; }
+
+        /// <summary>
+        /// Only populated when <see cref="GetWithDetails.IncludeProductActionPriceDetails.ProductGroup"/> was requested.
+        /// <para>Empty when this Action price is defined for a single product instead of a product group.</para>
+        /// </summary>
+        public ProductGroup Group { get; set; }
+
+        /// <summary>
+        /// Only populated when <see cref="GetWithDetails.IncludeProductActionPriceDetails.ProductSizeColor"/> was
+        /// requested and <see cref="ProductSizeColorId"/> is not 0 (0 means every size/color combination)
+        /// </summary>
+        public ProductSizeColor ProductSizeColor { get; set; }
+
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();

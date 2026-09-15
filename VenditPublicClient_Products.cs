@@ -133,6 +133,30 @@ namespace VenditPublicSdk
             }
 
             /// <summary>
+            /// Retrieve multiple size/color combinations including the requested details
+            /// </summary>
+            /// <param name="details">Add up all wanted details to get multiple details in one call.
+            /// <para>Unlike the overloads without details, which always include the size and the color, this returns exactly
+            /// what was asked for.</para></param>
+            /// <param name="cancel">Cancellation token</param>
+            /// <param name="sizeColorIds">Size-Color IDs</param>
+            public Task<ProductSizeColor[]> GetProductSizeColors(IncludeProductSizeColorDetails details, CancellationToken cancel, params int[] sizeColorIds)
+            {
+                return _client.GetMultiple<ProductSizeColor, int>(sizeColorIds, cancel, "/VenditPublicApi/ProductSizeColors", $"?detailFlags={(long)details}");
+            }
+
+            /// <summary>
+            /// Get one size/color combination including the requested details
+            /// </summary>
+            /// <param name="sizeColorId">Size-Color ID</param>
+            /// <param name="details">Add up all wanted details to get multiple details in one call</param>
+            /// <param name="cancel">Cancellation token</param>
+            public Task<ProductSizeColor> GetProductSizeColorWithDetails(int sizeColorId, IncludeProductSizeColorDetails details, CancellationToken cancel = default)
+            {
+                return _client.GetSomething<ProductSizeColor>(cancel, $"/VenditPublicApi/ProductSizeColors/GetWithDetails/{sizeColorId}/{(int)details}");
+            }
+
+            /// <summary>
             /// Get Barcodes belonging to a product
             /// </summary>
             /// <param name="productId">Product ID</param>
@@ -231,6 +255,29 @@ namespace VenditPublicSdk
                 return _client.GetMultiple<ProductActionPrice, int>(ids, cancel, "/VenditPublicApi/Lookups/ProductActionPrices/");
             }
 
+            /// <summary>
+            /// Get multiple Action prices by their IDs, including the requested details
+            /// </summary>
+            /// <param name="details">Add up all wanted details to get multiple details in one call</param>
+            /// <param name="cancel">Cancellation token</param>
+            /// <param name="ids">Action price IDs (ACTION_PRICE_ID)</param>
+            /// <returns>Collection of Action prices</returns>
+            public Task<ProductActionPrice[]> GetProductActionPrices(IncludeProductActionPriceDetails details, CancellationToken cancel, params int[] ids)
+            {
+                return _client.GetMultiple<ProductActionPrice, int>(ids, cancel, "/VenditPublicApi/Lookups/ProductActionPrices/", $"?detailFlags={(long)details}");
+            }
+
+            /// <summary>
+            /// Get one Action price including the requested details
+            /// </summary>
+            /// <param name="actionPriceId">Action price ID (ACTION_PRICE_ID)</param>
+            /// <param name="details">Add up all wanted details to get multiple details in one call</param>
+            /// <param name="cancel">Cancellation token</param>
+            public Task<ProductActionPrice> GetProductActionPriceWithDetails(int actionPriceId, IncludeProductActionPriceDetails details, CancellationToken cancel = default)
+            {
+                return _client.GetSomething<ProductActionPrice>(cancel, $"/VenditPublicApi/Lookups/ProductActionPrices/GetWithDetails/{actionPriceId}/{(int)details}");
+            }
+
             public Task<ProductActionPrice[]> GetAllProductActionPrices(CancellationToken cancel = default)
             {
                 return _client.GetAll<ProductActionPrice>(cancel, "/VenditPublicApi/Lookups/ProductActionPrices/");
@@ -274,6 +321,29 @@ namespace VenditPublicSdk
             public Task<ProductBarcode[]> GetProductBarcodes(CancellationToken cancel, params int[] ids)
             {
                 return _client.GetMultiple<ProductBarcode, int>(ids, cancel, "/VenditPublicApi/Lookups/Barcodes/");
+            }
+
+            /// <summary>
+            /// Get multiple barcodes by their IDs, including the requested details
+            /// </summary>
+            /// <param name="details">Add up all wanted details to get multiple details in one call</param>
+            /// <param name="cancel">Cancellation token</param>
+            /// <param name="ids">Barcode IDs (PRODUCT_BARCODE_ID)</param>
+            /// <returns>Collection of barcodes</returns>
+            public Task<ProductBarcode[]> GetProductBarcodes(IncludeProductBarcodeDetails details, CancellationToken cancel, params int[] ids)
+            {
+                return _client.GetMultiple<ProductBarcode, int>(ids, cancel, "/VenditPublicApi/Lookups/Barcodes/", $"?detailFlags={(long)details}");
+            }
+
+            /// <summary>
+            /// Get one barcode including the requested details
+            /// </summary>
+            /// <param name="barcodeId">Barcode ID (PRODUCT_BARCODE_ID)</param>
+            /// <param name="details">Add up all wanted details to get multiple details in one call</param>
+            /// <param name="cancel">Cancellation token</param>
+            public Task<ProductBarcode> GetProductBarcodeWithDetails(int barcodeId, IncludeProductBarcodeDetails details, CancellationToken cancel = default)
+            {
+                return _client.GetSomething<ProductBarcode>(cancel, $"/VenditPublicApi/Lookups/Barcodes/GetWithDetails/{barcodeId}/{(int)details}");
             }
 
             /// <summary>
@@ -378,6 +448,29 @@ namespace VenditPublicSdk
             public Task<Vat[]> GetVatDefinitions(CancellationToken cancel, params int[] ids)
             {
                 return _client.GetMultiple<Vat, int>(ids, cancel, "/VenditPublicApi/Lookups/VatDefinitions/");
+            }
+
+            /// <summary>
+            /// Get multiple Vat definitions by their IDs, including the requested details
+            /// </summary>
+            /// <param name="details">Add up all wanted details to get multiple details in one call</param>
+            /// <param name="cancel">Cancellation token</param>
+            /// <param name="ids">Vat IDs</param>
+            /// <returns>Collection of Vat definitions</returns>
+            public Task<Vat[]> GetVatDefinitions(IncludeVatDetails details, CancellationToken cancel, params int[] ids)
+            {
+                return _client.GetMultiple<Vat, int>(ids, cancel, "/VenditPublicApi/Lookups/VatDefinitions/", $"?detailFlags={(long)details}");
+            }
+
+            /// <summary>
+            /// Get one Vat definition including the requested details
+            /// </summary>
+            /// <param name="vatId">Vat ID</param>
+            /// <param name="details">Add up all wanted details to get multiple details in one call</param>
+            /// <param name="cancel">Cancellation token</param>
+            public Task<Vat> GetVatDefinitionWithDetails(int vatId, IncludeVatDetails details, CancellationToken cancel = default)
+            {
+                return _client.GetSomething<Vat>(cancel, $"/VenditPublicApi/Lookups/VatDefinitions/GetWithDetails/{vatId}/{(int)details}");
             }
 
             public Task<Vat[]> GetAllVatDefinitions(CancellationToken cancel = default)

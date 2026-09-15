@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using VenditPublicSdk.Base;
 using VenditPublicSdk.Entities;
+using VenditPublicSdk.Entities.GetWithDetails;
 using VenditPublicSdk.Find;
 
 namespace VenditPublicSdk
@@ -42,6 +43,16 @@ namespace VenditPublicSdk
             public Task<Offer[]> GetOffers(CancellationToken cancel, params long[] ids)
             {
                 return _client.GetMultiple<Offer, long>(ids, cancel, "/VenditPublicApi/Offers");
+            }
+
+            public Task<Offer[]> GetOffers(IncludeOfferDetails details, CancellationToken cancel, params long[] ids)
+            {
+                return _client.GetMultiple<Offer, long>(ids, cancel, "/VenditPublicApi/Offers", $"?detailFlags={(long)details}");
+            }
+
+            public Task<Offer> GetOfferWithDetails(long id, IncludeOfferDetails details, CancellationToken cancel = default)
+            {
+                return _client.GetSomething<Offer>(cancel, $"/VenditPublicApi/Offers/GetWithDetails/{id}/{(int)details}");
             }
 
             public Task<Offer> GetOfferWithDetails(long id, CancellationToken cancel = default)

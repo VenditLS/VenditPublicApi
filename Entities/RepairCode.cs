@@ -15,6 +15,11 @@ namespace VenditPublicSdk.Entities
         public string HeaderGroupDescription { get; set; }
         public string ServiceTypeDescription { get; set; }
 
+        /// <summary>
+        /// Only populated when <see cref="GetWithDetails.IncludeRepairCodeDetails.Branche"/> was requested
+        /// </summary>
+        public Branche Branche { get; set; }
+
         object ICloneable.Clone()
         {
             return Clone();
@@ -28,7 +33,8 @@ namespace VenditPublicSdk.Entities
                 BrancheId = BrancheId,
                 HeaderGroupCode = HeaderGroupCode,
                 HeaderGroupDescription = HeaderGroupDescription,
-                ServiceTypeDescription = ServiceTypeDescription
+                ServiceTypeDescription = ServiceTypeDescription,
+                Branche = Branche
             };
 
             if (Details != null)

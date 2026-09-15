@@ -88,6 +88,16 @@ namespace VenditPublicSdk
                 return _client.GetMultiple<Address, int>(ids, cancel, "/VenditPublicApi/Addresses");
             }
 
+            public Task<Address[]> GetAddresses(IncludeAddressDetails details, CancellationToken cancel, params int[] ids)
+            {
+                return _client.GetMultiple<Address, int>(ids, cancel, "/VenditPublicApi/Addresses", $"?detailFlags={(long)details}");
+            }
+
+            public Task<Address> GetAddressWithDetails(int id, IncludeAddressDetails details, CancellationToken cancel = default)
+            {
+                return _client.GetSomething<Address>(cancel, $"/VenditPublicApi/Addresses/GetWithDetails/{id}/{(int)details}");
+            }
+
             public Task<Contact[]> GetAddressContacts(int addressId, CancellationToken cancel = default)
             {
                 return _client.GetMultiple<Contact>(cancel, $"/VenditPublicApi/Addresses/GetContacts/{addressId}");
@@ -115,6 +125,16 @@ namespace VenditPublicSdk
                 return _client.GetMultiple<Contact, int>(ids, cancel, "/VenditPublicApi/Contacts");
             }
 
+            public Task<Contact[]> GetContacts(IncludeContactDetails details, CancellationToken cancel, params int[] ids)
+            {
+                return _client.GetMultiple<Contact, int>(ids, cancel, "/VenditPublicApi/Contacts", $"?detailFlags={(long)details}");
+            }
+
+            public Task<Contact> GetContactWithDetails(int id, IncludeContactDetails details, CancellationToken cancel = default)
+            {
+                return _client.GetSomething<Contact>(cancel, $"/VenditPublicApi/Contacts/GetWithDetails/{id}/{(int)details}");
+            }
+
             public Task<Phone[]> GetContactPhones(int contactId, CancellationToken cancel = default)
             {
                 return _client.GetMultiple<Phone>(cancel, $"/VenditPublicApi/Contacts/GetPhones/{contactId}");
@@ -135,6 +155,29 @@ namespace VenditPublicSdk
             public Task<Phone[]> GetPhones(CancellationToken cancel, params int[] ids)
             {
                 return _client.GetMultiple<Phone, int>(ids, cancel, "/VenditPublicApi/Phones");
+            }
+
+            /// <summary>
+            /// Get multiple phone numbers by their IDs, including the requested details
+            /// </summary>
+            /// <param name="details">Add up all wanted details to get multiple details in one call</param>
+            /// <param name="cancel">Cancellation token</param>
+            /// <param name="ids">Phone IDs</param>
+            /// <returns>Collection of phone numbers</returns>
+            public Task<Phone[]> GetPhones(IncludePhoneDetails details, CancellationToken cancel, params int[] ids)
+            {
+                return _client.GetMultiple<Phone, int>(ids, cancel, "/VenditPublicApi/Phones", $"?detailFlags={(long)details}");
+            }
+
+            /// <summary>
+            /// Get one phone number including the requested details
+            /// </summary>
+            /// <param name="id">Phone ID</param>
+            /// <param name="details">Add up all wanted details to get multiple details in one call</param>
+            /// <param name="cancel">Cancellation token</param>
+            public Task<Phone> GetPhoneWithDetails(int id, IncludePhoneDetails details, CancellationToken cancel = default)
+            {
+                return _client.GetSomething<Phone>(cancel, $"/VenditPublicApi/Phones/GetWithDetails/{id}/{(int)details}");
             }
 
             // Address Types

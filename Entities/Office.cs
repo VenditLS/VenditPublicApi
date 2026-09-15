@@ -1,4 +1,5 @@
 ﻿using System;
+using VenditPublicSdk.Entities.Lookups;
 
 namespace VenditPublicSdk.Entities
 {
@@ -60,5 +61,40 @@ namespace VenditPublicSdk.Entities
         public string DeliveryGlnNumber { get; set; }
         public string ExternalCustomerNumber1 { get; set; }
         public string ExternalCustomerNumber2 { get; set; }
+
+        /// <summary>
+        /// Only populated when <see cref="GetWithDetails.IncludeOfficeDetails.Address"/> was requested
+        /// </summary>
+        public Address Address { get; set; }
+
+        /// <summary>
+        /// Only populated when <see cref="GetWithDetails.IncludeOfficeDetails.InvoiceAddress"/> was requested
+        /// </summary>
+        public Address InvoiceAddress { get; set; }
+
+        /// <summary>
+        /// Only populated when <see cref="GetWithDetails.IncludeOfficeDetails.DeliveryAddress"/> was requested
+        /// </summary>
+        public Address DeliveryAddress { get; set; }
+
+        /// <summary>
+        /// Only populated when <see cref="GetWithDetails.IncludeOfficeDetails.Country"/> was requested
+        /// </summary>
+        public Country Country { get; set; }
+
+        /// <summary>
+        /// Only populated when <see cref="GetWithDetails.IncludeOfficeDetails.Phone"/> was requested
+        /// </summary>
+        public Phone Phone { get; set; }
+
+        /// <summary>
+        /// Only populated when <see cref="GetWithDetails.IncludeOfficeDetails.InvoicePhone"/> was requested
+        /// </summary>
+        public Phone InvoicePhone { get; set; }
+
+        /// <summary>
+        /// Only populated when <see cref="GetWithDetails.IncludeOfficeDetails.DeliveryPhone"/> was requested
+        /// </summary>
+        public Phone DeliveryPhone { get; set; }
     }
 }

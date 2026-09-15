@@ -21,6 +21,26 @@ namespace VenditPublicSdk.Entities
         public DateTime? OrderExpectedDeliveryDate { get; set; }
         public string OptiplyId { get; set; }
 
+        /// <summary>
+        /// Only populated when <see cref="GetWithDetails.IncludePurchaseOrderDetails.Supplier"/> was requested
+        /// </summary>
+        public Supplier Supplier { get; set; }
+
+        /// <summary>
+        /// Only populated when <see cref="GetWithDetails.IncludePurchaseOrderDetails.Office"/> was requested
+        /// </summary>
+        public Office Office { get; set; }
+
+        /// <summary>
+        /// Only populated when <see cref="GetWithDetails.IncludePurchaseOrderDetails.Employee"/> was requested
+        /// </summary>
+        public Employee Employee { get; set; }
+
+        /// <summary>
+        /// Only populated when <see cref="GetWithDetails.IncludePurchaseOrderDetails.PreorderEmployee"/> was requested
+        /// </summary>
+        public Employee PreorderEmployee { get; set; }
+
         public override string ToString()
         {
             return $"[{PurchaseOrderNumber}] {OrderDatetime.ToShortDateString()}";
@@ -56,6 +76,16 @@ namespace VenditPublicSdk.Entities
         public int? PromotionProductId { get; set; }
         public Guid LineId { get; set; }
         public decimal AmountDelivered { get; set; }
+
+        /// <summary>
+        /// Only populated when <see cref="GetWithDetails.IncludePurchaseOrderDetails.Product"/> was requested
+        /// </summary>
+        public Product Product { get; set; }
+
+        /// <summary>
+        /// Only populated when <see cref="GetWithDetails.IncludePurchaseOrderDetails.ProductSizeColor"/> was requested
+        /// </summary>
+        public ProductSizeColor ProductSizeColor { get; set; }
 
         public override string ToString()
         {

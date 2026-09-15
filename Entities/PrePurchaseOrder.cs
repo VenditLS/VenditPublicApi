@@ -39,5 +39,36 @@ namespace VenditPublicSdk.Entities
         public string ImeiNumber { get; set; }
         public string CertificateNumber { get; set; }
         public string OptiplyId { get; set; }
+
+        /// <summary>
+        /// Only populated when <see cref="GetWithDetails.IncludePrePurchaseOrderDetails.Office"/> was requested
+        /// </summary>
+        public Office Office { get; set; }
+
+        /// <summary>
+        /// Only populated when <see cref="GetWithDetails.IncludePrePurchaseOrderDetails.Employee"/> was requested
+        /// </summary>
+        public Employee Employee { get; set; }
+
+        /// <summary>
+        /// Only populated when <see cref="GetWithDetails.IncludePrePurchaseOrderDetails.Product"/> was requested
+        /// </summary>
+        public Product Product { get; set; }
+
+        /// <summary>
+        /// Only populated when <see cref="GetWithDetails.IncludePrePurchaseOrderDetails.ProductSizeColor"/> was
+        /// requested and <see cref="ProductSizeColorId"/> is not 0 (0 means the product has no size/color variations)
+        /// </summary>
+        public ProductSizeColor ProductSizeColor { get; set; }
+
+        /// <summary>
+        /// Only populated when <see cref="GetWithDetails.IncludePrePurchaseOrderDetails.TargetSupplier"/> was requested
+        /// </summary>
+        public Supplier TargetSupplier { get; set; }
+
+        /// <summary>
+        /// Only populated when <see cref="GetWithDetails.IncludePrePurchaseOrderDetails.TargetOffice"/> was requested
+        /// </summary>
+        public Office TargetOffice { get; set; }
     }
 }

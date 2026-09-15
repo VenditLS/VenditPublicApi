@@ -13,6 +13,12 @@ namespace VenditPublicSdk.Entities
 
         public decimal ProductQuantity { get; set; }
 
+        /// <summary>
+        /// The product behind this reference, only populated when
+        /// <see cref="GetWithDetails.IncludeRepairCodeDetails.Product"/> was requested
+        /// </summary>
+        public Product Product { get; set; }
+
         object ICloneable.Clone()
         {
             return Clone();
@@ -24,7 +30,8 @@ namespace VenditPublicSdk.Entities
                 RepairCodeDetailProductId = RepairCodeDetailProductId,
                 RepairCodeDetailId = RepairCodeDetailId,
                 ProductId = ProductId,
-                ProductQuantity = ProductQuantity
+                ProductQuantity = ProductQuantity,
+                Product = Product
             };
         }
     }

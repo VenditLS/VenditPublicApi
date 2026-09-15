@@ -46,7 +46,17 @@ namespace VenditPublicSdk
             {
                 return _client.GetMultiple<ProductPurchaseOrder, long>(ids, cancel, "/VenditPublicApi/PurchaseOrders");
             }
-            
+
+            public Task<ProductPurchaseOrder[]> GetPurchaseOrders(IncludePurchaseOrderDetails details, CancellationToken cancel, params long[] ids)
+            {
+                return _client.GetMultiple<ProductPurchaseOrder, long>(ids, cancel, "/VenditPublicApi/PurchaseOrders", $"?detailFlags={(long)details}");
+            }
+
+            public Task<ProductPurchaseOrder> GetPurchaseOrderWithDetails(long id, IncludePurchaseOrderDetails details, CancellationToken cancel = default)
+            {
+                return _client.GetSomething<ProductPurchaseOrder>(cancel, $"/VenditPublicApi/PurchaseOrders/GetWithDetails/{id}/{(int)details}");
+            }
+
             public Task<ProductPurchaseOrder> GetPurchaseOrderWithDetails(long id, CancellationToken cancel = default)
             {
                 return _client.GetSomething<ProductPurchaseOrder>(id.ToString(), cancel, "/VenditPublicApi/PurchaseOrders/GetWithDetails");
@@ -84,6 +94,16 @@ namespace VenditPublicSdk
                 return _client.GetMultiple<HistoryPurchaseHeader, long>(ids, cancel, "/VenditPublicApi/HistoryPurchaseOrders");
             }
 
+            public Task<HistoryPurchaseHeader[]> GetHistoryPurchaseOrders(IncludeHistoryPurchaseOrderDetails details, CancellationToken cancel, params long[] ids)
+            {
+                return _client.GetMultiple<HistoryPurchaseHeader, long>(ids, cancel, "/VenditPublicApi/HistoryPurchaseOrders", $"?detailFlags={(long)details}");
+            }
+
+            public Task<HistoryPurchaseHeader> GetHistoryPurchaseOrderWithDetails(long id, IncludeHistoryPurchaseOrderDetails details, CancellationToken cancel = default)
+            {
+                return _client.GetSomething<HistoryPurchaseHeader>(cancel, $"/VenditPublicApi/HistoryPurchaseOrders/GetWithDetails/{id}/{(int)details}");
+            }
+
             public Task<HistoryPurchaseHeader> GetHistoryPurchaseOrderWithDetails(long id, CancellationToken cancel = default)
             {
                 return _client.GetSomething<HistoryPurchaseHeader>(id.ToString(), cancel, "/VenditPublicApi/HistoryPurchaseOrders/GetWithDetails");
@@ -104,6 +124,29 @@ namespace VenditPublicSdk
             public Task<PrePurchaseOrder[]> GetPrePurchaseOrders(CancellationToken cancel, params int[] ids)
             {
                 return _client.GetMultiple<PrePurchaseOrder, int>(ids, cancel, "/VenditPublicApi/PrePurchaseOrders/");
+            }
+
+            /// <summary>
+            /// Get multiple order advices by their IDs, including the requested details
+            /// </summary>
+            /// <param name="details">Add up all wanted details to get multiple details in one call</param>
+            /// <param name="cancel">Cancellation token</param>
+            /// <param name="ids">PrePurchaseOrder IDs (PRODUCT_PREORDER_ID)</param>
+            /// <returns>Collection of order advices</returns>
+            public Task<PrePurchaseOrder[]> GetPrePurchaseOrders(IncludePrePurchaseOrderDetails details, CancellationToken cancel, params int[] ids)
+            {
+                return _client.GetMultiple<PrePurchaseOrder, int>(ids, cancel, "/VenditPublicApi/PrePurchaseOrders/", $"?detailFlags={(long)details}");
+            }
+
+            /// <summary>
+            /// Get one order advice including the requested details
+            /// </summary>
+            /// <param name="prePurchaseOrderId">PrePurchaseOrder ID (PRODUCT_PREORDER_ID)</param>
+            /// <param name="details">Add up all wanted details to get multiple details in one call</param>
+            /// <param name="cancel">Cancellation token</param>
+            public Task<PrePurchaseOrder> GetPrePurchaseOrderWithDetails(int prePurchaseOrderId, IncludePrePurchaseOrderDetails details, CancellationToken cancel = default)
+            {
+                return _client.GetSomething<PrePurchaseOrder>(cancel, $"/VenditPublicApi/PrePurchaseOrders/GetWithDetails/{prePurchaseOrderId}/{(int)details}");
             }
 
             public Task<PrePurchaseOrder[]> GetAllPrePurchaseOrders(CancellationToken cancel = default)

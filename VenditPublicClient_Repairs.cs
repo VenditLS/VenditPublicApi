@@ -149,6 +149,29 @@ namespace VenditPublicSdk
                 return _client.GetMultiple<RepairCode, int>(ids, cancel, "/VenditPublicApi/Lookups/RepairCodes/");
             }
 
+            /// <summary>
+            /// Get multiple repair codes by their IDs, including the requested details
+            /// </summary>
+            /// <param name="details">Add up all wanted details to get multiple details in one call</param>
+            /// <param name="cancel">Cancellation token</param>
+            /// <param name="ids">RepairCode IDs (REPAIR_CODE_HEADER_ID)</param>
+            /// <returns>Collection of repair codes</returns>
+            public Task<RepairCode[]> GetRepairCodes(IncludeRepairCodeDetails details, CancellationToken cancel, params int[] ids)
+            {
+                return _client.GetMultiple<RepairCode, int>(ids, cancel, "/VenditPublicApi/Lookups/RepairCodes/", $"?detailFlags={(long)details}");
+            }
+
+            /// <summary>
+            /// Get one repair code including the requested details
+            /// </summary>
+            /// <param name="codeId">RepairCode ID (REPAIR_CODE_HEADER_ID)</param>
+            /// <param name="details">Add up all wanted details to get multiple details in one call</param>
+            /// <param name="cancel">Cancellation token</param>
+            public Task<RepairCode> GetRepairCodeWithDetails(int codeId, IncludeRepairCodeDetails details, CancellationToken cancel = default)
+            {
+                return _client.GetSomething<RepairCode>(cancel, $"/VenditPublicApi/Lookups/RepairCodes/GetWithDetails/{codeId}/{(int)details}");
+            }
+
             public Task<RepairCode[]> GetAllRepairCodes(CancellationToken cancel = default)
             {
                 return _client.GetAll<RepairCode>(cancel, "/VenditPublicApi/Lookups/RepairCodes/");

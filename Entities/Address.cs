@@ -1,5 +1,6 @@
 ﻿using System;
 using VenditPublicSdk.Entities.Internal;
+using VenditPublicSdk.Entities.Lookups;
 
 namespace VenditPublicSdk.Entities
 {
@@ -19,9 +20,25 @@ namespace VenditPublicSdk.Entities
         public string companyName       { get; set; }
         public string glnNumber         { get; set; }
 
+        /// <summary>
+        /// Only populated when <see cref="GetWithDetails.IncludeAddressDetails.Phones"/> was requested
+        /// </summary>
         public Results<Phone> Phones { get; set; }
 
+        /// <summary>
+        /// Only populated when <see cref="GetWithDetails.IncludeAddressDetails.Contacts"/> was requested
+        /// </summary>
         public Results<Contact> Contacts { get; set; }
+
+        /// <summary>
+        /// Only populated when <see cref="GetWithDetails.IncludeAddressDetails.Country"/> was requested
+        /// </summary>
+        public Country Country { get; set; }
+
+        /// <summary>
+        /// Only populated when <see cref="GetWithDetails.IncludeAddressDetails.AddressType"/> was requested
+        /// </summary>
+        public AddressType AddressType { get; set; }
 
         public override string ToString()
         {

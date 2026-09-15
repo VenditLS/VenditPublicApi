@@ -1,4 +1,5 @@
 ﻿using System;
+using VenditPublicSdk.Entities.Lookups;
 
 namespace VenditPublicSdk.Entities
 {
@@ -10,6 +11,11 @@ namespace VenditPublicSdk.Entities
         public int PhoneTypeId { get; set; }
         public bool DefaultPhone { get; set; }
         public string DialingCode { get; set; }
+
+        /// <summary>
+        /// Only populated when <see cref="GetWithDetails.IncludePhoneDetails.PhoneType"/> was requested
+        /// </summary>
+        public PhoneType PhoneType { get; set; }
 
         public override string ToString()
         {

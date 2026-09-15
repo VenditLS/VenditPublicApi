@@ -79,6 +79,21 @@ namespace VenditPublicSdk.Entities
         public string VinNumber { get; set; }
         public string VelopassNumber { get; set; }
 
+        /// <summary>
+        /// The branche of this trade-in, only populated when <see cref="GetWithDetails.IncludeTradeInDetails.Branche"/> was requested
+        /// </summary>
+        public Branche Branche { get; set; }
+
+        /// <summary>
+        /// The product group of this trade-in, only populated when <see cref="GetWithDetails.IncludeTradeInDetails.ProductGroup"/> was requested
+        /// </summary>
+        public ProductGroup Group { get; set; }
+
+        /// <summary>
+        /// The office this item was traded in at, only populated when <see cref="GetWithDetails.IncludeTradeInDetails.TradeInOffice"/> was requested
+        /// </summary>
+        public Office TradeInOffice { get; set; }
+
         public override string ToString()
         {
             return Description;

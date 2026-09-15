@@ -20,6 +20,36 @@ namespace VenditPublicSdk.Entities
         public decimal PicklistQuantity { get; set; }
         public string ProductExtraInfo { get; set; }
 
+        /// <summary>
+        /// Only populated when <see cref="GetWithDetails.IncludeStockOfficeTransferOrderDetails.OfficeFrom"/> was requested
+        /// </summary>
+        public Office OfficeFrom { get; set; }
+
+        /// <summary>
+        /// Only populated when <see cref="GetWithDetails.IncludeStockOfficeTransferOrderDetails.OfficeTo"/> was requested
+        /// </summary>
+        public Office OfficeTo { get; set; }
+
+        /// <summary>
+        /// Only populated when <see cref="GetWithDetails.IncludeStockOfficeTransferOrderDetails.OrderEmployee"/> was requested
+        /// </summary>
+        public Employee OrderEmployee { get; set; }
+
+        /// <summary>
+        /// Only populated when <see cref="GetWithDetails.IncludeStockOfficeTransferOrderDetails.PicklistEmployee"/> was requested
+        /// </summary>
+        public Employee PicklistEmployee { get; set; }
+
+        /// <summary>
+        /// Only populated when <see cref="GetWithDetails.IncludeStockOfficeTransferOrderDetails.Product"/> was requested
+        /// </summary>
+        public Product Product { get; set; }
+
+        /// <summary>
+        /// Only populated when <see cref="GetWithDetails.IncludeStockOfficeTransferOrderDetails.ProductSizeColor"/> was requested
+        /// </summary>
+        public ProductSizeColor ProductSizeColor { get; set; }
+
         public override string ToString()
         {
             return $"{ProductId} x {ProductQuantity} {ProductExtraInfo}";
@@ -42,6 +72,21 @@ namespace VenditPublicSdk.Entities
         public DateTime? ExpectedDeliveryDate { get; set; }
 
         public Results<StockOfficeTransferDetail> Details { get; set; }
+
+        /// <summary>
+        /// Only populated when <see cref="GetWithDetails.IncludeStockOfficeTransferDetails.OfficeFrom"/> was requested
+        /// </summary>
+        public Office OfficeFrom { get; set; }
+
+        /// <summary>
+        /// Only populated when <see cref="GetWithDetails.IncludeStockOfficeTransferDetails.OfficeTo"/> was requested
+        /// </summary>
+        public Office OfficeTo { get; set; }
+
+        /// <summary>
+        /// Only populated when <see cref="GetWithDetails.IncludeStockOfficeTransferDetails.Employee"/> was requested
+        /// </summary>
+        public Employee Employee { get; set; }
 
         public override string ToString()
         {
@@ -83,6 +128,21 @@ namespace VenditPublicSdk.Entities
         public long? CustomerOrderDetailId { get; set; }
         public string Remark { get; set; }
 
+        /// <summary>
+        /// Only populated when <see cref="GetWithDetails.IncludeStockOfficeTransferDetails.Product"/> was requested
+        /// </summary>
+        public Product Product { get; set; }
+
+        /// <summary>
+        /// Only populated when <see cref="GetWithDetails.IncludeStockOfficeTransferDetails.ProductSizeColor"/> was requested
+        /// </summary>
+        public ProductSizeColor ProductSizeColor { get; set; }
+
+        /// <summary>
+        /// Only populated when <see cref="GetWithDetails.IncludeStockOfficeTransferDetails.TradeIn"/> was requested
+        /// </summary>
+        public TradeIn TradeIn { get; set; }
+
         public override string ToString()
         {
             return $"{ProductId} x {ProductQuantity} {Remark}";
@@ -114,6 +174,26 @@ namespace VenditPublicSdk.Entities
         }
 
         public Results<StockOfficeTransferDetailHistory> Details { get; set; }
+
+        /// <summary>
+        /// Only populated when <see cref="GetWithDetails.IncludeStockOfficeTransferHistoryDetails.OfficeFrom"/> was requested
+        /// </summary>
+        public Office OfficeFrom { get; set; }
+
+        /// <summary>
+        /// Only populated when <see cref="GetWithDetails.IncludeStockOfficeTransferHistoryDetails.OfficeTo"/> was requested
+        /// </summary>
+        public Office OfficeTo { get; set; }
+
+        /// <summary>
+        /// Only populated when <see cref="GetWithDetails.IncludeStockOfficeTransferHistoryDetails.Employee"/> was requested
+        /// </summary>
+        public Employee Employee { get; set; }
+
+        /// <summary>
+        /// Only populated when <see cref="GetWithDetails.IncludeStockOfficeTransferHistoryDetails.ProcessEmployee"/> was requested
+        /// </summary>
+        public Employee ProcessEmployee { get; set; }
     }
 
     [Serializable]
@@ -140,6 +220,16 @@ namespace VenditPublicSdk.Entities
         public int? StockLocationIdTo { get; set; }
         public long? CustomerOrderDetailId { get; set; }
         public string Remark { get; set; }
+
+        /// <summary>
+        /// Only populated when <see cref="GetWithDetails.IncludeStockOfficeTransferHistoryDetails.Product"/> was requested
+        /// </summary>
+        public Product Product { get; set; }
+
+        /// <summary>
+        /// Only populated when <see cref="GetWithDetails.IncludeStockOfficeTransferHistoryDetails.ProductSizeColor"/> was requested
+        /// </summary>
+        public ProductSizeColor ProductSizeColor { get; set; }
 
         public override string ToString()
         {

@@ -19,6 +19,12 @@ namespace VenditPublicSdk.Entities
         public string ColorSubstitute { get; set; }
         public string ColorCode { get; set; }
 
+        /// <summary>
+        /// The product this size/color combination belongs to, only populated when
+        /// <see cref="GetWithDetails.IncludeProductSizeColorDetails.Product"/> was requested
+        /// </summary>
+        public Product Product { get; set; }
+
         public override string ToString()
         {
             return $"{SizeName} - {ColorName}";

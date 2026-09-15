@@ -1,4 +1,5 @@
 ﻿using System;
+using VenditPublicSdk.Entities.Lookups;
 
 namespace VenditPublicSdk.Entities
 {
@@ -17,6 +18,11 @@ namespace VenditPublicSdk.Entities
         public bool VatDisabled { get; set; }
         public bool VatShiftedRuleOutsideEu { get; set; }
         public bool VatShiftedRuleOwnCountry { get; set; }
+
+        /// <summary>
+        /// Only populated when <see cref="GetWithDetails.IncludeVatDetails.Country"/> was requested
+        /// </summary>
+        public Country Country { get; set; }
 
         public override string ToString()
         {

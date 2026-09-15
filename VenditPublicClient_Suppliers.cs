@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using VenditPublicSdk.Base;
 using VenditPublicSdk.Entities;
+using VenditPublicSdk.Entities.GetWithDetails;
 using VenditPublicSdk.Entities.Import;
 using VenditPublicSdk.Entities.Internal;
 using VenditPublicSdk.Find;
@@ -50,6 +51,28 @@ namespace VenditPublicSdk
             public Task<Supplier[]> GetSuppliers(CancellationToken cancel, params int[] ids)
             {
                 return _client.GetMultiple<Supplier, int>(ids, cancel, "/VenditPublicApi/Suppliers");
+            }
+
+            /// <summary>
+            /// Retrieve multiple suppliers including the requested details
+            /// </summary>
+            /// <param name="details">Add up all wanted details to get multiple details in one call</param>
+            /// <param name="cancel">Cancellation token</param>
+            /// <param name="ids">Supplier IDs</param>
+            public Task<Supplier[]> GetSuppliers(IncludeSupplierDetails details, CancellationToken cancel, params int[] ids)
+            {
+                return _client.GetMultiple<Supplier, int>(ids, cancel, "/VenditPublicApi/Suppliers", $"?detailFlags={(long)details}");
+            }
+
+            /// <summary>
+            /// Get one supplier including the requested details
+            /// </summary>
+            /// <param name="id">Supplier ID</param>
+            /// <param name="details">Add up all wanted details to get multiple details in one call</param>
+            /// <param name="cancel">Cancellation token</param>
+            public Task<Supplier> GetSupplierWithDetails(int id, IncludeSupplierDetails details, CancellationToken cancel = default)
+            {
+                return _client.GetSomething<Supplier>(cancel, $"/VenditPublicApi/Suppliers/GetWithDetails/{id}/{(int)details}");
             }
 
             public Task<Address[]> GetSupplierAddresses(int supplierId, CancellationToken cancel = default)

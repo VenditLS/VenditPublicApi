@@ -31,6 +31,21 @@ namespace VenditPublicSdk.Entities
         public int InvoiceDebitCustomerId { get; set; }
         public string TelecomReferenceNumber { get; set; }
 
+        /// <summary>
+        /// Only populated when <see cref="GetWithDetails.IncludeOfferDetails.Customer"/> was requested
+        /// </summary>
+        public Customer Customer { get; set; }
+
+        /// <summary>
+        /// Only populated when <see cref="GetWithDetails.IncludeOfferDetails.Office"/> was requested
+        /// </summary>
+        public Office Office { get; set; }
+
+        /// <summary>
+        /// Only populated when <see cref="GetWithDetails.IncludeOfferDetails.Employee"/> was requested
+        /// </summary>
+        public Employee Employee { get; set; }
+
         public override string ToString()
         {
             return $"[{CustomerOfferNumber}] {CreationDatetime.ToShortDateString()}";
@@ -120,6 +135,21 @@ namespace VenditPublicSdk.Entities
         public string VinNumber { get; set; }
         public string VelopassNumber { get; set; }
         public decimal? ReservedAmount { get; set; }
+
+        /// <summary>
+        /// Only populated when <see cref="GetWithDetails.IncludeOfferDetails.ProductSizeColor"/> was requested
+        /// </summary>
+        public ProductSizeColor ProductSizeColor { get; set; }
+
+        /// <summary>
+        /// Only populated when <see cref="GetWithDetails.IncludeOfferDetails.Brand"/> was requested
+        /// </summary>
+        public Brand Brand { get; set; }
+
+        /// <summary>
+        /// Only populated when <see cref="GetWithDetails.IncludeOfferDetails.Vat"/> was requested
+        /// </summary>
+        public Vat Vat { get; set; }
 
         public override string ToString()
         {

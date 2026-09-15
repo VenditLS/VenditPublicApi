@@ -69,6 +69,11 @@ namespace VenditPublicSdk.Entities
         public bool? SmsPlanningReminderActive { get; set; }
         public bool? UseOnlinePlanning { get; set; }
 
+        /// <summary>
+        /// Only populated when <see cref="GetWithDetails.IncludeEmployeeDetails.Office"/> was requested
+        /// </summary>
+        public Office Office { get; set; }
+
         public override string ToString()
         {
             return EmployeeName;

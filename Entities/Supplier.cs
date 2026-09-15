@@ -1,11 +1,24 @@
 ﻿using System;
+using VenditPublicSdk.Entities.Internal;
+using VenditPublicSdk.Entities.Lookups;
 
 namespace VenditPublicSdk.Entities
 {
     [Serializable]
     public class Supplier
     {
-        public Address[] Addresses { get; set; }
+        /// <summary>
+        /// Only populated when <see cref="GetWithDetails.IncludeSupplierDetails.Addresses"/> was requested
+        /// </summary>
+        public Results<Address> Addresses { get; set; }
+
+        /// <summary>
+        /// The supplier groups this supplier belongs to, only populated when
+        /// <see cref="GetWithDetails.IncludeSupplierDetails.SupplierGroups"/> was requested
+        /// <para><see cref="SupplierGroupBitvalue"/> is a bitmask, so a supplier can belong to more than one group.</para>
+        /// </summary>
+        public Results<SupplierGroup> SupplierGroups { get; set; }
+
         public int SupplierId { get; set; }
         public string SupplierName { get; set; }
         public string SupplierEmail { get; set; }

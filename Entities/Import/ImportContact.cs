@@ -7,9 +7,9 @@ namespace VenditPublicSdk.Entities.Import
     public class ImportContact : Contact
     {
         public new Results<Phone> Phones { get; set; }
-        public string Title { get; set; }
-        public string MiddleName { get; set; }
-        public string Gender { get; set; }
+        public new string Title { get; set; }
+        public new string MiddleName { get; set; }
+        public new string Gender { get; set; }
         public string Function { get; set; }
     }
 }
